@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,66 +8,19 @@
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<!-- My CSS -->
-	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="..style.css">
 
 	<title>Dashboard</title>
+
+
 </head>
+
 <body>
 
 
 	<!-- SIDEBAR -->
-	<section id="sidebar">
-		<a href="#" class="brand">
-			<img src="" alt="">
-			<span class="text"></span>
-		</a>
-		<ul class="side-menu top">
-			<li class="active">
-				<a href="#">
-					<i class='bx bxs-dashboard' ></i>
-					<span class="text">Dashboard</span>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<i class='bx bxs-shopping-bag-alt' ></i>
-					<span class="text">My Store</span>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<i class='bx bxs-doughnut-chart' ></i>
-					<span class="text">Analytics</span>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<i class='bx bxs-message-dots' ></i>
-					<span class="text">Message</span>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<i class='bx bxs-group' ></i>
-					<span class="text">Team</span>
-				</a>
-			</li>
-		</ul>
-		<ul class="side-menu">
-			<li>
-				<a href="#">
-					<i class='bx bxs-cog' ></i>
-					<span class="text">Settings</span>
-				</a>
-			</li>
-			<li>
-				<a href="#" class="logout">
-					<i class='bx bxs-log-out-circle' ></i>
-					<span class="text">Logout</span>
-				</a>
-			</li>
-		</ul>
-	</section>
+	<?php include(__DIR__ . "/../parts/sidebar.php"); ?>
+
 	<!-- SIDEBAR -->
 
 
@@ -74,25 +28,8 @@
 	<!-- CONTENT -->
 	<section id="content">
 		<!-- NAVBAR -->
-		<nav>
-			<i class='bx bx-menu' ></i>
-			
-			<form action="#">
-				<div class="form-input">
-					<input type="search" placeholder="Search...">
-					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
-				</div>
-			</form>
-			<input type="checkbox" id="switch-mode" hidden>
-			<label for="switch-mode" class="switch-mode"></label>
-			<a href="#" class="notification">
-				<i class='bx bxs-bell' ></i>
-				<span class="num">8</span>
-			</a>
-			<a href="#" class="profile">
-				<img src="img/people.png">
-			</a>
-		</nav>
+		<?php include(__DIR__ . "/../parts/navbar.php"); ?>
+
 		<!-- NAVBAR -->
 
 		<!-- MAIN -->
@@ -100,143 +37,167 @@
 			<div class="head-title">
 				<div class="left">
 					<h1>Dashboard</h1>
-					<ul class="breadcrumb">
-						<li>
-							<a href="#">Dashboard</a>
-						</li>
-						<li><i class='bx bx-chevron-right' ></i></li>
-						<li>
-							<a class="active" href="#">Home</a>
-						</li>
-					</ul>
 				</div>
-				<a href="#" class="btn-download">
-					<i class='bx bxs-cloud-download' ></i>
-					<span class="text">Download PDF</span>
-				</a>
 			</div>
-
 			<ul class="box-info">
 				<li>
-					<i class='bx bxs-calendar-check' ></i>
-					<span class="text">
-						<h3>1020</h3>
-						<p>New Order</p>
-					</span>
+					<div class="card-box">
+						<div class="card">
+							<div class="card-content">
+								<div class="text">
+									<p class="card-label">Total Pelanggan</p>
+									<h2 class="card-number">100</h2>
+								</div>
+								<div class="card-icon">
+									<i class='bx bxs-user-account'></i>
+								</div>
+							</div>
+							<div class="card-footer">
+								<i class='bx bx-trending-up'></i>
+								<span class="percent">1.5%</span>
+								<span class="status">Bertambah dari kemarin</span>
+							</div>
+						</div>
+					</div>
 				</li>
-				<li>
-					<i class='bx bxs-group' ></i>
-					<span class="text">
-						<h3>2834</h3>
-						<p>Visitors</p>
-					</span>
+				<div class="card-box">
+					<div class="card">
+						<div class="card-content">
+							<div class="text">
+								<p class="card-label">Total Pelanggan</p>
+								<h2 class="card-number">100</h2>
+							</div>
+							<div class="card-icon">
+								<i class='bx bxs-user-account'></i>
+							</div>
+						</div>
+						<div class="card-footer">
+							<i class='bx bx-trending-up'></i>
+							<span class="percent">1.5%</span>
+							<span class="status">Bertambah dari kemarin</span>
+						</div>
+					</div>
+				</div>
 				</li>
-				<li>
-					<i class='bx bxs-dollar-circle' ></i>
-					<span class="text">
-						<h3>$2543</h3>
-						<p>Total Sales</p>
-					</span>
+				<div class="card-box">
+					<div class="card">
+						<div class="card-content">
+							<div class="text">
+								<p class="card-label">Total Pelanggan</p>
+								<h2 class="card-number">100</h2>
+							</div>
+							<div class="card-icon">
+								<i class='bx bxs-user-account'></i>
+							</div>
+						</div>
+						<div class="card-footer">
+							<i class='bx bx-trending-up'></i>
+							<span class="percent">1.5%</span>
+							<span class="status">Bertambah dari kemarin</span>
+						</div>
+					</div>
+				</div>
+				</li>
+				<div class="card-box">
+					<div class="card">
+						<div class="card-content">
+							<div class="text">
+								<p class="card-label">Total Pelanggan</p>
+								<h2 class="card-number">100</h2>
+							</div>
+							<div class="card-icon">
+								<i class='bx bxs-user-account'></i>
+							</div>
+						</div>
+						<div class="card-footer">
+							<i class='bx bx-trending-up'></i>
+							<span class="percent">1.5%</span>
+							<span class="status">Bertambah dari kemarin</span>
+						</div>
+					</div>
+				</div>
 				</li>
 			</ul>
-
-
-			<div class="table-data">
-				<div class="order">
-					<div class="head">
-						<h3>Recent Orders</h3>
-						<i class='bx bx-search' ></i>
-						<i class='bx bx-filter' ></i>
-					</div>
-					<table>
-						<thead>
-							<tr>
-								<th>User</th>
-								<th>Date Order</th>
-								<th>Status</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<img src="img/people.png">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status completed">Completed</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/people.png">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status pending">Pending</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/people.png">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status process">Process</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/people.png">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status pending">Pending</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/people.png">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status completed">Completed</span></td>
-							</tr>
-						</tbody>
-					</table>
+			<div class="chart-card">
+				<div class="chart-header">
+					<h3>Detail Penjualan</h3>
+					<select>
+						<option>Maret</option>
+						<option>April</option>
+						<option>Mei</option>
+					</select>
 				</div>
-				<div class="todo">
-					<div class="head">
-						<h3>Todos</h3>
-						<i class='bx bx-plus' ></i>
-						<i class='bx bx-filter' ></i>
-					</div>
-					<ul class="todo-list">
-						<li class="completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="not-completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="not-completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-					</ul>
-				</div>
+				<canvas id="salesChart" height="100"></canvas>
 			</div>
+
+
 		</main>
+
 		<!-- MAIN -->
 	</section>
 	<!-- CONTENT -->
-	
 
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="../script.js"></script>
-    
+	<script>
+		const ctx = document.getElementById('salesChart').getContext('2d');
+
+		new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: ['100k', '200k', '300k', '400k', '500k', '600k', '700k', '800k', '900k', '1000k', '1100k', '1200k'],
+				datasets: [{
+					data: [22, 45, 38, 90, 47, 55, 22, 40, 78, 70, 65, 60],
+					borderColor: '#3b82f6',
+					backgroundColor: 'rgba(59, 130, 246, 0.1)',
+					fill: true,
+					tension: 0, // bikin patah-patah
+					pointBackgroundColor: '#3b82f6',
+					pointRadius: 4,
+					pointHoverRadius: 6,
+					pointBorderWidth: 2,
+					borderWidth: 2,
+				}]
+			},
+			options: {
+				responsive: true,
+				plugins: {
+					tooltip: {
+						callbacks: {
+							label: function(context) {
+								return `Rp ${context.raw.toLocaleString('id-ID')}`;
+							}
+						},
+						backgroundColor: '#111827',
+						titleColor: '#fff',
+						bodyColor: '#fff',
+					},
+					legend: {
+						display: false
+					}
+				},
+				scales: {
+					y: {
+						min: 0,
+						max: 100,
+						ticks: {
+							callback: function(value) {
+								return value + '%';
+							}
+						},
+						grid: {
+							color: '#e5e7eb'
+						}
+					},
+					x: {
+						grid: {
+							display: false
+						}
+					}
+				}
+			}
+		});
+	</script>
 </body>
+
 </html>
