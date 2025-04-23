@@ -32,13 +32,29 @@
         .nav-buttons button {
             margin-left: 10px;
             padding: 8px 15px;
-            border: none;
+            border: 2px solid white;
             border-radius: 15px;
-            background-color: white;
-            color: #0077cc;
+            background-color: #7cc5f7;
+            color: white;
             cursor: pointer;
             font-weight: bold;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
         }
+
+        /* Hover effect (tampilan saat diarahkan kursor) */
+        .nav-buttons button:hover {
+            background-color: white;
+            color: #0077cc;
+        }
+
+        /* Aktif: digunakan untuk menandai halaman saat ini */
+        .nav-buttons .active {
+            background-color: white;
+            color: #0077cc;
+        }
+
+
         .hero {
             position: relative;
             background-image: url('bghomr.jpeg'); /* Ganti dengan gambar background kamu */
@@ -99,9 +115,15 @@
         <h1>SI-SUPLY</h1>
     </div>
     <div class="nav-buttons">
-        <button onclick="location.href='register.php'">Register</button>
-        <button onclick="location.href='login.php'">Login</button>
-    </div>
+    <a href="register.php">
+        <button id="registerBtn">Register</button>
+    </a>
+    <a href="login.php">
+        <button id="loginBtn">Login</button>
+    </a>
+</div>
+
+
 </header>
 
 <div class="hero" style="background-image: url('images/bghomr.jpeg');"> <!-- Ganti dengan gambar sesuai -->
@@ -117,5 +139,8 @@
     Copyright ©SI-Suply 2024
 </footer>
 
+
+
+</script>
 </body>
 </html>
