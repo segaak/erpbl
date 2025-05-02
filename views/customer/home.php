@@ -7,7 +7,10 @@
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
+            background: url('../customer/images/bghomr.jpeg') no-repeat center center fixed;
             background-color: #f0f0f0;
+            background-size: cover;
+
         }
         header {
             background-color: #7cc5f7;
@@ -29,30 +32,7 @@
             color: white;
             margin: 0;
         }
-        .nav-buttons button {
-            margin-left: 10px;
-            padding: 8px 15px;
-            border: 2px solid white;
-            border-radius: 15px;
-            background-color: #7cc5f7;
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        }
-
-        /* Hover effect (tampilan saat diarahkan kursor) */
-        .nav-buttons button:hover {
-            background-color: white;
-            color: #0077cc;
-        }
-
-        /* Aktif: digunakan untuk menandai halaman saat ini */
-        .nav-buttons .active {
-            background-color: white;
-            color: #0077cc;
-        }
+       
 
 
         .hero {
@@ -60,7 +40,7 @@
             background-image: url('bghomr.jpeg'); /* Ganti dengan gambar background kamu */
             background-size: cover;
             background-position: center;
-            height: 90vh;
+            height: 86vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -99,31 +79,13 @@
             padding: 10px 20px;
             border-radius: 10px;
         }
-        footer {
-            background-color: #7cc5f7;
-            text-align: center;
-            padding: 10px;
-            color: white;
-        }
+       
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-title">
-        <img src="images/logo.jpg" alt="Logo"> <!-- Ganti logo sesuai nama file -->
-        <h1>SI-SUPLY</h1>
-    </div>
-    <div class="nav-buttons">
-    <a href="register.php">
-        <button id="registerBtn">Register</button>
-    </a>
-    <a href="login.php">
-        <button id="loginBtn">Login</button>
-    </a>
-</div>
-
-
+<?php include('../../parts/customer/navbar1.php'); ?>
 </header>
 
 <div class="hero" style="background-image: url('images/bghomr.jpeg');"> <!-- Ganti dengan gambar sesuai -->
@@ -135,10 +97,9 @@
     </div>
 </div>
 
-<footer>
-    Copyright ©SI-Suply 2024
-</footer>
 
+
+<?php include('../../parts/customer/footer.php'); ?>
 
 
 </script>

@@ -1,74 +1,45 @@
-<?php $current_page = basename($_SERVER['PHP_SELF']); ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Register | SI-SUPLY</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      font-family: sans-serif;
-    }
+    <meta charset="UTF-8">
+    <title>SI-SUPLY</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f0f0;
+            background: url('../customer/images/bghomr.jpeg') no-repeat center center fixed;
+            background-size: cover;
+        }
 
-    body {
-      background: url('images/bghomr.jpeg') no-repeat center center fixed;
-      background-size: cover;
-    }
+        header {
+            background-color: #7cc5f7;
+            padding: 10px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-    .navbar {
-  background-color: #73c2f9;
-  padding: 10px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.logo {
-  display: flex;
-  align-items: center;
-  color: white;
-  font-weight: bold;
-  font-size: 20px;
-}
+        .logo-title img {
+            height: 40px;
+        }
 
-.logo img {
-  height: 35px;
-  margin-right: 10px;
-}
+        .logo-title h1 {
+            font-size: 24px;
+            color: white;
+            margin: 0;
+        }
 
-.nav-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.nav-btn {
-  background-color: transparent;
-  color: white;
-  border: 2px solid white;
-  padding: 8px 16px;
-  border-radius: 15px;
-  text-decoration: none;
-  font-weight: bold;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
-}
-
-.nav-btn:hover {
-  background-color: white;
-  color: #6ec1ff;
-}
-
-.nav-btn.active {
-  background-color: white;
-  color: #6ec1ff;
-}
-
-
-    .register-box {
+        .register-box {
       background-color: rgba(255,255,255,0.85);
       width: 400px;
-      margin: 50px auto;
+      margin: 48px auto;
       padding: 30px;
       border-radius: 20px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -116,32 +87,15 @@
     .btn-register:hover {
       background-color: #57ace7;
     }
-
-    footer {
-      text-align: center;
-      background-color: #73c2f9;
-      color: white;
-      padding: 10px;
-      font-size: 12px;
-      margin-top: 30px;
-    }
-  </style>
+    </style>
 </head>
 <body>
 
-<div class="navbar">
-  <div class="logo">
-    <img src="images/logo.jpg" alt="Logo">
-    <span>SI-SUPLY</span>
-  </div>
-  <?php $current_page = basename($_SERVER['PHP_SELF']); ?>
-  <div class="nav-buttons">
-    <a href="register.php" class="nav-btn <?= $current_page == 'register.php' ? 'active' : '' ?>">Register</a>
-    <a href="login.php" class="nav-btn <?= $current_page == 'login.php' ? 'active' : '' ?>">Login</a>
-  </div>
-</div>
+<header>
+  <?php include('../../parts/customer/navbar1.php'); ?>
+</header>
 
-
+<!-- Login Form -->
   <div class="register-box">
     <img src="images/logo.jpg" alt="Logo">
     <h2>Register</h2>
@@ -176,9 +130,8 @@
     </form>
   </div>
 
-  <footer>
-    Copyright © SI-Suply 2024
-  </footer>
+<?php include('../../parts/customer/footer.php'); ?>
+
 
 </body>
 </html>

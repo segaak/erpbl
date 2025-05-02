@@ -1,184 +1,103 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Login | SI-SUPLY</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: sans-serif;
-    }
+    <meta charset="UTF-8">
+    <title>SI-SUPLY</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f0f0;
+            background: url('../customer/images/bghomr.jpeg') no-repeat center center fixed;
+            background-size: cover;
+        }
 
-    body {
-      background: url('img/bg-login.png') no-repeat center center fixed;
-      background-size: cover;
-    }
+      
 
-    .navbar {
-      background-color: #73c2f9;
-      padding: 10px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      color: white;
-      font-weight: bold;
-      font-size: 20px;
-    }
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
 
-    .logo img {
-      height: 35px;
-      margin-right: 10px;
-    }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
 
-    .nav-buttons a {
-      background-color: transparent;
-      color: white;
-      border: 2px solid white;
-      padding: 6px 14px;
-      border-radius: 15px;
-      margin-left: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s ease;
-    }
+        .btn-login {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: #7cc5f7;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
 
-    .nav-buttons a.active,
-    .nav-buttons a:hover {
-      background-color: white;
-      color: #6ec1ff;
-    }
+        .btn-login:hover {
+            background-color: #56a9d8;
+        }
 
-    .login-box {
-      background-color: rgba(255,255,255,0.95);
-      width: 400px;
-      margin: 80px auto;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      text-align: center;
-    }
+        .register-link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
 
-    .login-box img {
-      width: 60px;
-      margin-bottom: 15px;
-    }
+        .register-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-    .login-box h2 {
-      margin-bottom: 20px;
-      font-weight: bold;
-      font-size: 22px;
-      color: #333;
-    }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
 
-    .form-group {
-      text-align: left;
-      margin-bottom: 15px;
-    }
-
-    .form-group label {
-      font-weight: bold;
-      font-size: 14px;
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    .btn-login {
-      width: 100%;
-      padding: 10px;
-      background-color: #73c2f9;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-      margin-top: 10px;
-    }
-
-    .btn-login:hover {
-      background-color: #57ace7;
-    }
-
-    .register-link {
-      margin-top: 10px;
-      font-size: 13px;
-    }
-
-    .register-link a {
-      color: #007bff;
-      text-decoration: none;
-    }
-
-    .register-link a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      text-align: center;
-      background-color: #73c2f9;
-      color: white;
-      padding: 10px;
-      font-size: 12px;
-      margin-top: 30px;
-    }
-  </style>
+   
+    </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <div class="navbar">
-    <div class="logo">
-      <img src="img/logo.png" alt="Logo">
-      SI-SUPLY
-    </div>
-    <div class="nav-buttons">
-      <?php $current_page = basename($_SERVER['PHP_SELF']); ?>
-      <a href="register.php" class="<?= $current_page == 'register.php' ? 'active' : '' ?>">Register</a>
-      <a href="login.php" class="<?= $current_page == 'login.php' ? 'active' : '' ?>">Login</a>
-    </div>
-  </div>
-
-  <!-- Login Form -->
-  <div class="login-box">
-    <img src="img/logo.png" alt="Logo">
+<header>
+  <?php include('../../parts/customer/navbar1.php'); ?>
+</header>
+<!-- Login Form -->
+<div class="login-box">
+    <img src="images/logo.jpg" alt="Logo">
     <h2>Login</h2>
     <form action="proses_login.php" method="post">
-      <div class="form-group">
-        <label>Username</label>
-        <input type="text" name="username" placeholder="Masukan Username" required>
-      </div>
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Masukan Username" required>
+        </div>
 
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" name="password" placeholder="Masukan Password" required>
-      </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Masukan Password" required>
+        </div>
 
-      <button type="submit" class="btn-login">Login</button>
+        <button type="submit" class="btn-login">Login</button>
     </form>
 
     <div class="register-link">
-      Belum punya akun? <a href="register.php">Register</a>
+        Belum punya akun? <a href="register.php">Register</a>
     </div>
-  </div>
+</div>
 
-  <!-- Footer -->
-  <footer>
-    Copyright © SI-Suply 2024
-  </footer>
+<?php include('../../parts/customer/footer.php'); ?>
+
 
 </body>
 </html>
