@@ -83,9 +83,8 @@
 </head>
 <body>
 
-<header>
+
   <?php include('../../parts/customer/navbar2.php'); ?>
-</header>
 
 <!-- Hero Section -->
 <section class="hero">
@@ -123,16 +122,20 @@
     $query = mysqli_query($conn, "SELECT * FROM produk");
     while ($row = mysqli_fetch_assoc($query)) :
     ?>
-      <div class="col-6 col-md-3">
-        <div class="product-card">
-          <img src="img/<?= $row['gambar']; ?>" alt="<?= $row['nama_produk']; ?>">
-          <h6><?= $row['nama_produk']; ?></h6>
-          <p class="text-muted small"><?= $row['kategori']; ?></p>
-          <p class="text-muted small"><?= $row['deskripsi']; ?></p>
-          <p><strong>Rp<?= number_format($row['harga']); ?></strong></p>
-          <a href="beli.php?id_produk=<?= $row['ID_Produk']; ?>&quantity=1" class="btn btn-add w-100">+ Add</a>
-        </div>
-      </div>
+     <div class="col-6 col-md-3">
+  <a href="produk-detail.php?id=<?= $row['ID_Produk']; ?>" style="text-decoration: none; color: inherit;">
+    <div class="product-card">
+      <img src="img/<?= $row['gambar']; ?>" alt="<?= $row['nama_produk']; ?>">
+      <h6><?= $row['nama_produk']; ?></h6>
+      <p class="text-muted small"><?= $row['kategori']; ?></p>
+
+      <p><strong>Rp<?= number_format($row['harga']); ?></strong></p>
+      <a href="beli.php?id_produk=<?= $row['ID_Produk']; ?>&quantity=1" class="btn btn-add w-100 mt-2">+ Add</a>
+
+    </div>
+    
+  </a>
+</div>
     <?php endwhile; ?>
   </div>
 </section>

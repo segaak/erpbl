@@ -124,7 +124,10 @@ $foto_profil = 'images/user-default.png';
 
   <div class="actions">
     <button>💚 Wishlist</button>
-    <button>🛒 My Cart</button>
+    <form action="keranjang.php" method="get">
+  <button type="submit" class="btn btn-warning">🛒 My Cart</button>
+</form>
+
     <div class="dropdown">
       <a class="user-profile dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <img src="<?= htmlspecialchars($foto_profil) ?>" alt="Foto">
