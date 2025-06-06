@@ -125,7 +125,7 @@
      <div class="col-6 col-md-3">
   <a href="produk-detail.php?id=<?= $row['ID_Produk']; ?>" style="text-decoration: none; color: inherit;">
     <div class="product-card">
-      <img src="img/<?= $row['gambar']; ?>" alt="<?= $row['nama_produk']; ?>">
+      <img src="images/<?= $row['gambar']; ?>" alt="<?= $row['nama_produk']; ?>">
       <h6><?= $row['nama_produk']; ?></h6>
       <p class="text-muted small"><?= $row['kategori']; ?></p>
 

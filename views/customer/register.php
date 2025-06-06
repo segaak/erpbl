@@ -100,34 +100,41 @@
     <img src="images/logo.jpg" alt="Logo">
     <h2>Register</h2>
 
-    <form action="home.php" method="POST">
-      <div class="form-group">
-        <label>Nama</label>
-        <input type="text" name="nama" placeholder="Masukan Nama" required>
-      </div>
+    
+     <form action="proses_register.php" method="POST">
+  <div class="form-group">
+    <label>Nama</label>
+    <input type="text" name="nama" placeholder="Masukan Nama" required>
+  </div>
 
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="Masukan Email" required>
-      </div>
+  <div class="form-group">
+    <label>Username</label>
+    <input type="text" name="username" placeholder="Masukan Username" required>
+  </div>
 
-      <div class="form-group">
-        <label>Alamat</label>
-        <input type="text" name="alamat" placeholder="Masukan Alamat" required>
-      </div>
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" name="email" placeholder="Masukan Email" required>
+  </div>
 
-      <div class="form-group">
-        <label>No. HP</label>
-        <input type="text" name="no_hp" placeholder="Masukan No. HP" required>
-      </div>
+  <div class="form-group">
+    <label>Alamat</label>
+    <input type="text" name="alamat" placeholder="Masukan Alamat" required>
+  </div>
 
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" name="password" placeholder="Masukan Password" required>
-      </div>
+  <div class="form-group">
+    <label>No. HP</label>
+    <input type="text" name="no_hp" placeholder="Masukan No. HP" required>
+  </div>
 
-      <button type="submit" class="btn-register">Register</button>
-    </form>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Masukan Password" required>
+  </div>
+
+  <button type="submit" class="btn-register">Register</button>
+</form>
+
   </div>
 
 <?php include('../../parts/customer/footer.php'); ?>
