@@ -120,19 +120,15 @@ if (!$produk) {
         <span class="price ms-2">Rp<?= number_format($produk['harga']); ?></span>
         <div class="price-original">Rp<?= number_format($produk['harga'] * 1.1); ?></div>
       </div>
-
+<br>
       <h6>Deskripsi</h6>
-      <ul>
-        <li>Gula berkualitas tinggi</li>
-        <li>Terbuat dari 100% Gula Tebu Alami</li>
-        <li>Lihat Selengkapnya</li>
-      </ul>
+   <h10><?= $produk['deskripsi']; ?></h10>
     </div>
 
     <!-- Pembelian -->
     <div class="col-md-3">
       <div class="purchase-box">
-        <form action="beli.php" method="get">
+        <form action="add_to_cart.php" method="post">
           <input type="hidden" name="id_produk" value="<?= $produk['ID_Produk']; ?>">
           <label for="quantity" class="form-label fw-bold mb-2">Jumlah pembelian</label>
           <div class="quantity-box">

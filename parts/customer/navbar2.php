@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 $nama_pengguna = $_SESSION['username'] ?? 'Nama Pengguna';
 $foto_profil = 'images/user-default.png';
 ?>
