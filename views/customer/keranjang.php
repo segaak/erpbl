@@ -43,7 +43,7 @@ $couponInput = $_POST['coupon'] ?? '';
 if ($couponInput === $discountCode) {
     $appliedDiscount = $discountAmount;
 }
-
+$totalQty = 0; // dipindah ke sini agar hitung yang valid
 $total = 0;
 ?>
 
@@ -124,58 +124,70 @@ $total = 0;
   <div class="breadcrumb mb-4">
     <a href="produk.php">Home</a> > <a href="#">Cart</a>
   </div>
+<?php if (count($cart) === 0): ?>
+  <div class="alert alert-info">Keranjang Anda kosong.</div>
+  <a href="produk.php" class="btn btn-primary">Kembali ke Produk</a>
+<?php else: ?>
+
+<?php
+// === Bersihkan item yang tidak valid ===
+foreach ($cart as $id => $qty) {
+    $product = getProduct($conn, $id);
+    if (!$product) {
+        unset($_SESSION['cart'][$id]);
+        continue;
+    }
+
+    // Tambahkan subtotal dan totalQty hanya jika produk valid
+    $itemTotal = $product['harga'] * $qty;
+    $subtotal += $itemTotal;
+    $totalQty += $qty;
+}
+?>
 
   <h3>Shopping Cart</h3>
-  <p>You have <?= count($cart); ?> item(s) in your cart</p>
+  <p>You have <?= $totalQty; ?> item(s) in your cart</p>
 
-  <?php if (count($cart) === 0): ?>
-    <div class="alert alert-info">Keranjang Anda kosong.</div>
-    <a href="produk.php" class="btn btn-primary">Kembali ke Produk</a>
-  <?php else: ?>
-
-  <div class="table-responsive">
-    <table class="table cart-table align-middle">
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Unit</th>
-          <th>Price (Rp)</th>
-          <th>Quantity</th>
-          <th>Total (Rp)</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($cart as $id => $qty): 
-          $product = getProduct($conn, $id);
-          if (!$product) continue;
-          $itemTotal = $product['harga'] * $qty;
-          $subtotal += $itemTotal;
-        ?>
-        <tr>
-          <td>
-            <div class="d-flex align-items-center gap-3">
-              <img src="img/<?= htmlspecialchars($product['gambar']); ?>" alt="">
-              <div><?= htmlspecialchars($product['nama_produk']); ?></div>
-            </div>
-          </td>
-          <td><?= htmlspecialchars($product['satuan']); ?></td>
-          <td>Rp <?= number_format($product['harga']); ?></td>
-          <td>
-            <?= $qty; ?>
-          </td>
-          <td>Rp <?= number_format($itemTotal); ?></td>
-          <td>
-            <form method="post" action="keranjang_hapus.php" style="display:inline;">
-              <input type="hidden" name="id" value="<?= $id; ?>">
-              <button type="submit" class="btn btn-sm btn-danger">&times;</button>
-            </form>
-          </td>
-        </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
-  </div>
+<div class="table-responsive">
+  <table class="table cart-table align-middle">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Unit</th>
+        <th>Price (Rp)</th>
+        <th>Quantity</th>
+        <th>Total (Rp)</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($_SESSION['cart'] as $id => $qty): 
+        $product = getProduct($conn, $id);
+        if (!$product) continue;
+        $itemTotal = $product['harga'] * $qty;
+      ?>
+      <tr>
+        <td>
+          <div class="d-flex align-items-center gap-3">
+            <img src="img/<?= htmlspecialchars($product['gambar']); ?>" alt="">
+            <div><?= htmlspecialchars($product['nama_produk']); ?></div>
+          </div>
+        </td>
+        <td><?= htmlspecialchars($product['satuan']); ?></td>
+        <td>Rp <?= number_format($product['harga']); ?></td>
+        <td><?= $qty; ?></td>
+        <td>Rp <?= number_format($itemTotal); ?></td>
+        <td>
+          <form method="post" action="keranjang_hapus.php" style="display:inline;">
+            <input type="hidden" name="id" value="<?= $id; ?>">
+            <button type="submit" class="btn btn-sm btn-danger">&times;</button>
+          </form>
+        </td>
+      </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+</div>
 
   <!-- Kupon + Total -->
   <div class="row mt-4">

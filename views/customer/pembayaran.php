@@ -30,6 +30,7 @@ $couponInput = $_POST['coupon'] ?? '';
 if (strcasecmp($couponInput, $discountCode) === 0) {
     $appliedDiscount = $discountAmount;
 }
+$totalQty = array_sum($cart);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -174,7 +175,7 @@ if (strcasecmp($couponInput, $discountCode) === 0) {
         ?>
         <table class="summary-table w-100">
           <tr>
-            <td>Total Harga (<?= count($cart); ?> barang)</td>
+            <td>Total Harga (<?= $totalQty; ?> barang)</td>
             <td>Rp <?= number_format($subtotal); ?></td>
           </tr>
           <tr>
