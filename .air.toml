@@ -1,0 +1,7 @@
+[build]
+cmd = "go run main.go"
+include_ext = ["go", "html"]
+exclude_dir = ["node_modules", "tmp", "assets"]
+
+[log]
+time = true
