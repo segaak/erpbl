@@ -9,7 +9,7 @@ import (
 func ProductHandler(db *sql.DB) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		tmpl, err := template.ParseFiles(
-			"views/admin/ProductHandler.html",
+			"views/admin/product.html",
 			"parts/admin/navbar.html",
 			"parts/admin/sidebar.html",
 		)
@@ -18,11 +18,9 @@ func ProductHandler(db *sql.DB) func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		// Data bisa diisi dari db kalau kamu mau
-		err = tmpl.ExecuteTemplate(w, "product", nil)
+		err = tmpl.ExecuteTemplate(w, "product", nil) // GANTI DI SINI
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
-
 	}
 }

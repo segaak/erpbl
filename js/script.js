@@ -19,8 +19,8 @@ allSideMenu.forEach(item => {
     const li = item.parentElement;
 
     item.addEventListener('click', function (e) {
-        e.preventDefault(); // Prevent the default navigation behavior
-
+        // HAPUS e.preventDefault() - biarkan navigasi normal berjalan
+        
         // Remove active class from all menu items
         allSideMenu.forEach(i => {
             i.parentElement.classList.remove('active');
@@ -33,8 +33,7 @@ allSideMenu.forEach(item => {
         const href = item.getAttribute('href');
         localStorage.setItem('activePage', href);
 
-        // Navigate to the new page
-        window.location.href = href;
+        // Tidak perlu window.location.href karena link akan navigate secara normal
     });
 });
 
@@ -45,7 +44,6 @@ if (logoutButton) {
         localStorage.removeItem('activePage');
     });
 }
-
 
 // TOGGLE SIDEBAR
 const menuBar = document.querySelector('#content nav .bx.bx-menu');
@@ -64,7 +62,7 @@ const searchForm = document.querySelector('#content nav form');
 
 searchButton.addEventListener('click', function (e) {
 	if(window.innerWidth < 576) {
-		e.preventDefault();
+		// e.preventDefault();
 		searchForm.classList.toggle('show');
 		if(searchForm.classList.contains('show')) {
 			searchButtonIcon.classList.replace('bx-search', 'bx-x');
