@@ -20,13 +20,13 @@
 		</a>
 		<ul class="side-menu top">
 			<li class="active">
-				<a href="admindashboard.php">
+				<a href="/">
 					<i class='bx bxs-dashboard' ></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="products.php">
+				<a href="/product">
 					<i class='bx bxs-shopping-bag-alt' ></i>
 					<span class="text">Products</span>
 				</a>

@@ -9,9 +9,14 @@
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<!-- My CSS -->
-    <link rel="stylesheet" href=".../style.css">
+    
+    <link rel="stylesheet" href="/static/style.css">
 
 	<title>Dashboard</title>
+    <style>
+        
+          
+    </style>
 
 
 </head>
@@ -133,6 +138,41 @@
 				<canvas id="salesChart" height="100"></canvas>
 			</div>
 
+            <div class="transaksi-card">
+				<div class="transaksi-header">
+					<h3>Detail transaksi</h3>
+					<select>
+						<option>Maret</option>
+						<option>April</option>
+						<option>Mei</option>
+					</select>
+                </div>
+                    <table class="transaksi-table">
+                        <thead>
+                          <tr>
+                            <th>Nama Pembeli</th>
+                            <th>Alamat</th>
+                            <th>Waktu Pembelian</th>
+                            <th>Jumlah</th>
+                            <th>Biaya</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="pembeli">
+                              <img src="https://i.pravatar.cc/40" alt="avatar">
+                              <span>Gabriel Egi</span>
+                            </td>
+                            <td>Banguntapan-Bantul<br>RT 12-RW14 No 69</td>
+                            <td>09-03-2025 - 12.53 PM</td>
+                            <td>40 🧾</td>
+                            <td>Rp 5,000,000</td>
+                            <td><span class="badge delivered">Delivered</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+            </div>
 
 		</main>
 
@@ -201,6 +241,8 @@
 			}
 		});
 	</script>
+   
+      
 </body>
 
 </html>

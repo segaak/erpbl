@@ -13,6 +13,6 @@ func main() {
 
 	server := http.NewServeMux()
 	routes.MapRoutes(server, db)
-
+	server.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("views"))))
 	http.ListenAndServe(":8080", server)
 }

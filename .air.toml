@@ -1,6 +1,6 @@
 [build]
 cmd = "go run main.go"
-include_ext = ["go", "html"]
+include_ext = ["go", "html", "css"]
 exclude_dir = ["node_modules", "tmp", "assets"]
 
 [log]
