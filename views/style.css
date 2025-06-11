@@ -500,6 +500,7 @@ body {
   border-radius: 15px;
   margin-top: 30px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  
 }
 
 .chart-header {
@@ -521,6 +522,69 @@ body {
   border: 1px solid #ccc;
 }
 
+
+.transaksi-card {
+	background: #fff;
+	padding: 20px;
+	border-radius: 15px;
+	margin-top: 30px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+	
+  }
+  
+  .transaksi-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+  }
+  
+  .transaksi-header h3 {
+	margin: 0;
+	font-size: 18px;
+	color: #333;
+  }
+  
+  .transaksi-header select {
+	padding: 6px 10px;
+	border-radius: 6px;
+	border: 1px solid #ccc;
+  }
+  .transaksi-table {
+	width: 100%;
+	border-collapse: collapse;
+  }
+  
+  .transaksi-table thead {
+	background-color: #f3f4f6;
+  }
+  
+  .transaksi-table th,
+  .transaksi-table td {
+	padding: 12px 16px;
+	text-align: left;
+	border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .pembeli {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+  }
+  
+  .pembeli img {
+	border-radius: 50%;
+	width: 32px;
+	height: 32px;
+  }
+  
+  .badge {
+	padding: 4px 10px;
+	font-size: 12px;
+	border-radius: 999px;
+	background-color: #10b981;
+	color: white;
+  }
 /* MAIN */
 /* CONTENT */
 
