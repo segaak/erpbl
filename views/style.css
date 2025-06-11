@@ -529,7 +529,6 @@ body {
 	border-radius: 15px;
 	margin-top: 30px;
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-	
   }
   
   .transaksi-header {
@@ -588,7 +587,137 @@ body {
 /* MAIN */
 /* CONTENT */
 
+/* Product  */
+	.product {
+      max-width: 1200px;
+      margin: auto;
+    }
+.product-judul {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+.product-judul h2 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+	 .product-judul button {
+      padding: 10px 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+	  .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+	.product-card:hover {
+	box-shadow: 0 0 10px rgba(0,0,0,0.1);
+	transform: scale(1.02);
+	transition: all 0.3s ease;
+}
 
+    .product-card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+
+    .product-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .product-name {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .price {
+      color: #e07b00;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .rating {
+      font-size: 14px;
+      color: #ffa500;
+      margin-bottom: 8px;
+    }
+
+    .edit-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .favorite {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      color: #f44336;
+      font-size: 20px;
+      cursor: pointer;
+    }
+	/* product */
+
+	/* order list */
+	.table-container {
+	margin: 20px;
+	background: #fff;
+	border-radius: 10px;
+	padding: 20px;
+	box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.order-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.order-table th, .order-table td {
+	padding: 12px;
+	text-align: left;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.order-table th {
+	background-color: #f8f9fa;
+}
+
+.status {
+	padding: 5px 10px;
+	border-radius: 10px;
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+.status.completed {
+	background-color: #d4edda;
+	color: #155724;
+}
+
+.status.processing {
+	background-color: #e2e3ff;
+	color: #383dff;
+}
+
+.status.rejected {
+	background-color: #f8d7da;
+	color: #721c24;
+}
 
 
 

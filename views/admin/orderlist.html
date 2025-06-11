@@ -1,0 +1,87 @@
+{{ define "order" }}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/static/style.css">
+	<title>Product Page</title>
+	
+</head>
+
+<body>
+
+
+	<!-- SIDEBAR -->
+
+	{{ template "sidebar" . }}
+
+
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		{{ template "navbar" . }}
+
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			 <h2>Order Lists</h2>
+			<div class="table-container">
+				<table class="order-table">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>NAME</th>
+							<th>ADDRESS</th>
+							<th>DATE</th>
+							<th>Kontak</th>
+							<th>STATUS</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>00001</td>
+							<td>Christine Brooks</td>
+							<td>089 Kutch Green Apt. 448</td>
+							<td>04 Sep 2019</td>
+							<td>08674322332</td>
+							<td><span class="status completed">Completed</span></td>
+						</tr>
+						<tr>
+							<td>00002</td>
+							<td>Rosie Pearson</td>
+							<td>979 Immanuel Ferry Suite 526</td>
+							<td>28 May 2019</td>
+							<td>08312831231</td>
+							<td><span class="status processing">Processing</span></td>
+						</tr>
+						<tr>
+							<td>00003</td>
+							<td>Darrell Caldwell</td>
+							<td>8587 Frida Ports</td>
+							<td>23 Nov 2019</td>
+							<td>08312831321</td>
+							<td><span class="status rejected">Rejected</span></td>
+						</tr>
+						<!-- Tambahkan baris lainnya sesuai kebutuhan -->
+					</tbody>
+				</table>
+			</div>
+		</main>
+
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+
+	
+
+</body>
+
+</html>
+{{ end }}
