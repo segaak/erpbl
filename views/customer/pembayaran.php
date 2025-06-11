@@ -2,17 +2,16 @@
 session_start();
 include 'koneksi.php';
 
-// === 1. Tambah ke keranjang ===
+// Tambah ke keranjang
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_produk'])) {
     $id_produk = (int)$_POST['id_produk'];
     $quantity = (int)($_POST['quantity'] ?? 1);
-
     $_SESSION['cart'][$id_produk] = ($_SESSION['cart'][$id_produk] ?? 0) + $quantity;
     header("Location: keranjang.php");
     exit;
 }
 
-// === 2. Ambil data produk ===
+// Ambil data produk
 function getProduct($conn, $id) {
     $stmt = $conn->prepare("SELECT * FROM produk WHERE ID_Produk = ?");
     $stmt->bind_param("i", $id);
@@ -20,7 +19,7 @@ function getProduct($conn, $id) {
     return $stmt->get_result()->fetch_assoc();
 }
 
-// === 3. Diskon ===
+// Inisialisasi variabel
 $discountCode = 'Suppli2024';
 $discountAmount = 22000;
 $cart = $_SESSION['cart'] ?? [];
@@ -31,7 +30,11 @@ if (strcasecmp($couponInput, $discountCode) === 0) {
     $appliedDiscount = $discountAmount;
 }
 $totalQty = array_sum($cart);
+$ongkir = 50000;
+$asuransi = 5000;
+$totalTagihan = 0;
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -141,66 +144,69 @@ $totalQty = array_sum($cart);
 
     <!-- Kanan -->
     <div class="col-md-5">
-      <div class="section-box">
-        <h6>Metode Pembayaran <a href="#" class="float-end text-sm">Lihat Semua</a></h6>
-       <div class="mb-3 d-flex justify-content-between align-items-start">
-    <div class="d-flex align-items-center">
-      <img src="img/bca-va.png" height="24" class="me-2">
-      <div>
-        <strong>BCA Virtual Account</strong><br>
-        <small class="text-muted">Mudah & terverifikasi otomatis</small>
-      </div>
-    </div>
-    <input class="form-check-input mt-2" type="radio" name="metode_pembayaran" value="BCA Virtual Account" checked>
-  </div>
+      <form action="qr_payment.php" method="POST">
+        <div class="section-box">
+          <h6>Metode Pembayaran <a href="#" class="float-end text-sm">Lihat Semua</a></h6>
 
-  <div class="mb-3 d-flex justify-content-between align-items-start">
-    <div class="d-flex align-items-center">
-      <img src="img/alfamart.png" height="24" class="me-2">
-      <div>
-        <strong>Alfamart / Lawson / Dan+Dan</strong><br>
-        <small class="text-muted">Bayar di kasir di seluruh minimarket</small>
-      </div>
-    </div>
-    <input class="form-check-input mt-2" type="radio" name="metode_pembayaran" value="Alfamart">
-  </div>
+          <div class="mb-3 d-flex justify-content-between align-items-start">
+            <div class="d-flex align-items-center">
+              <img src="img/bca-va.png" height="24" class="me-2">
+              <div>
+                <strong>BCA Virtual Account</strong><br>
+                <small class="text-muted">Mudah & terverifikasi otomatis</small>
+              </div>
+            </div>
+            <input class="form-check-input mt-2" type="radio" name="metode_pembayaran" value="BCA Virtual Account" checked>
+          </div>
 
-        <hr>
+          <div class="mb-3 d-flex justify-content-between align-items-start">
+            <div class="d-flex align-items-center">
+              <img src="img/alfamart.png" height="24" class="me-2">
+              <div>
+                <strong>Alfamart / Lawson / Dan+Dan</strong><br>
+                <small class="text-muted">Bayar di kasir di seluruh minimarket</small>
+              </div>
+            </div>
+            <input class="form-check-input mt-2" type="radio" name="metode_pembayaran" value="Alfamart">
+          </div>
 
-        <h6>Cek Ringkasan Transaksimu</h6>
-        <?php
-          $ongkir = 50000;
-          $asuransi = 5000;
-          $totalTagihan = $subtotal + $ongkir + $asuransi - $appliedDiscount;
-        ?>
-        <table class="summary-table w-100">
-          <tr>
-            <td>Total Harga (<?= $totalQty; ?> barang)</td>
-            <td>Rp <?= number_format($subtotal); ?></td>
-          </tr>
-          <tr>
-            <td>Total Ongkos Kirim</td>
-            <td>Rp <?= number_format($ongkir); ?></td>
-          </tr>
-          <tr>
-            <td>Total Asuransi Pengiriman</td>
-            <td>Rp <?= number_format($asuransi); ?></td>
-          </tr>
-          <tr>
-            <td>Diskon</td>
-            <td>Rp <?= number_format($appliedDiscount); ?></td>
-          </tr>
-          <tr class="fw-bold">
-            <td>Total Tagihan</td>
-            <td>Rp <?= number_format($totalTagihan); ?></td>
-          </tr>
-        </table>
+          <hr>
 
-        <a href="pembayaran_berhasil.php" class="btn btn-checkout mt-3">Bayar Sekarang</a>
-        <p class="small text-muted mt-2 text-center">
-          Dengan melanjutkan pembayaran, kamu menyetujui S&K<br> Asuransi Pengiriman & Proteksi.
-        </p>
-      </div>
+          <!-- Ringkasan Biaya -->
+          <?php $totalTagihan = $subtotal + $ongkir + $asuransi - $appliedDiscount; ?>
+          <h6>Cek Ringkasan Transaksimu</h6>
+          <table class="summary-table w-100">
+            <tr>
+              <td>Total Harga (<?= $totalQty; ?> barang)</td>
+              <td>Rp <?= number_format($subtotal); ?></td>
+            </tr>
+            <tr>
+              <td>Total Ongkos Kirim</td>
+              <td>Rp <?= number_format($ongkir); ?></td>
+            </tr>
+            <tr>
+              <td>Total Asuransi Pengiriman</td>
+              <td>Rp <?= number_format($asuransi); ?></td>
+            </tr>
+            <tr>
+              <td>Diskon</td>
+              <td>Rp <?= number_format($appliedDiscount); ?></td>
+            </tr>
+            <tr class="fw-bold">
+              <td>Total Tagihan</td>
+              <td>Rp <?= number_format($totalTagihan); ?></td>
+            </tr>
+          </table>
+
+          <!-- Hidden input untuk total & submit -->
+          <input type="hidden" name="total_bayar" value="<?= $totalTagihan; ?>">
+          <button type="submit" class="btn btn-checkout mt-3">Bayar Sekarang</button>
+
+          <p class="small text-muted mt-2 text-center">
+            Dengan melanjutkan pembayaran, kamu menyetujui S&K<br> Asuransi Pengiriman & Proteksi.
+          </p>
+        </div>
+      </form>
     </div>
   </div>
 </div>
