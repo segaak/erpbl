@@ -1,0 +1,91 @@
+{{ define "report" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Laporan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+{{ template "sidebar" . }}
+<!-- SIDEBAR -->
+
+<section id="content">
+  <!-- NAVBAR -->
+  {{ template "navbar" . }}
+  <!-- NAVBAR -->
+
+  <!-- MAIN -->
+  <main class="report-wrapper">
+    <h2 class="report-title">Report</h2>
+
+    <div class="report-header">
+      <div class="report-from">
+        <p><strong>Report From:</strong></p>
+        <p>Virginia Walker</p>
+      </div>
+      <div class="report-date">
+        <p><strong>Date:</strong></p>
+        <p>20 March 2025</p>
+      </div>
+    </div>
+
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Base Cost</th>
+          <th>Total Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Product 1</td>
+          <td>2</td>
+          <td>Rp 2.000</td>
+          <td>Rp 4.000</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Product 2</td>
+          <td>2</td>
+          <td>Rp 3.000</td>
+          <td>Rp 6.000</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Product 3</td>
+          <td>5</td>
+          <td>Rp 4.000</td>
+          <td>Rp 20.000</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Product 4</td>
+          <td>4</td>
+          <td>Rp 5.000</td>
+          <td>Rp 20.000</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="report-total">
+      Total = <strong>Rp 50.000</strong>
+    </div>
+
+    <div class="report-actions">
+      <button class="report-btn print-btn">🖨 Print</button>
+      <button class="report-btn send-btn">✉ Send</button>
+    </div>
+  </main>
+</section>
+
+</body>
+</html>
+{{ end }}

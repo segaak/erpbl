@@ -18,9 +18,8 @@ func ProductHandler(db *sql.DB) func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		err = tmpl.ExecuteTemplate(w, "product", nil) // GANTI DI SINI
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
+		err = tmpl.ExecuteTemplate(w, "product", map[string]interface{}{
+			"CurrentPath": r.URL.Path,
+		})
 	}
 }

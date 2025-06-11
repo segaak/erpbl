@@ -18,9 +18,8 @@ func OrderHandler(db *sql.DB) func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		err = tmpl.ExecuteTemplate(w, "order", nil) // GANTI DI SINI
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
+		err = tmpl.ExecuteTemplate(w, "order", map[string]interface{}{
+			"CurrentPath": r.URL.Path,
+		})
 	}
 }

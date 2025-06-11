@@ -1,18 +1,16 @@
 const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
 
 // Apply the active class based on localStorage
-document.addEventListener('DOMContentLoaded', () => {
-    const activePage = localStorage.getItem('activePage');
-    if (activePage) {
-        allSideMenu.forEach(item => {
-            if (item.getAttribute('href') === activePage) {
-                item.parentElement.classList.add('active');
-            } else {
-                item.parentElement.classList.remove('active');
-            }
-        });
-    }
-});
+	document.addEventListener('DOMContentLoaded', () => {
+		const currentPath = window.location.pathname;
+		const links = document.querySelectorAll('.ss-menu-item a');
+
+		links.forEach(link => {
+			if (link.getAttribute('href') === currentPath) {
+				link.classList.add('active');
+			}
+		});
+	});
 
 // Add click event listeners to update the active class and store in localStorage
 allSideMenu.forEach(item => {

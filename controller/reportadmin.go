@@ -6,10 +6,10 @@ import (
 	"net/http"
 )
 
-func LaporanHandler(db *sql.DB) func(http.ResponseWriter, *http.Request) {
+func ReportHandler(db *sql.DB) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		tmpl, err := template.ParseFiles(
-			"views/admin/laporan.html",
+			"views/admin/report.html",
 			"parts/admin/navbar.html",
 			"parts/admin/sidebar.html",
 		)
@@ -18,9 +18,8 @@ func LaporanHandler(db *sql.DB) func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		err = tmpl.ExecuteTemplate(w, "laporan", nil) // GANTI DI SINI
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
+		err = tmpl.ExecuteTemplate(w, "report", map[string]interface{}{
+			"CurrentPath": r.URL.Path,
+		})
 	}
 }
