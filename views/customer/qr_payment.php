@@ -58,7 +58,7 @@ switch (strtolower($metode)) {
 
     <p class="text-muted mt-3">Setelah pembayaran berhasil, silakan tunggu konfirmasi otomatis atau kembali ke halaman utama.</p>
 
-    <a href="home.php" class="btn btn-primary mt-3">Kembali ke Beranda</a>
+    <a href="produk.php" class="btn btn-primary mt-3">Kembali ke Beranda</a>
   </div>
 </body>
 </html>

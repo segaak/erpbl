@@ -1,6 +1,6 @@
 <?php
 include 'koneksi.php';
-
+session_start();
 $statusFilter = $_GET['status'] ?? 'Semua';
 
 $sql = "SELECT * FROM orders";
@@ -15,8 +15,10 @@ $sql .= " ORDER BY order_date DESC";
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Load Bootstrap JS di head atau sebelum navbar -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <title>Riwayat Transaksi</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
       background-color: #eaf6ff;
@@ -48,6 +50,7 @@ $sql .= " ORDER BY order_date DESC";
       font-size: 0.8rem;
     }
   </style>
+
 </head>
 <body>
   <?php include('../../parts/customer/navbar2.php');
@@ -84,7 +87,8 @@ $sql .= " ORDER BY order_date DESC";
       <p class="text-muted text-center">Tidak ada transaksi untuk status ini.</p>
     <?php endif; ?>
   </div>
-  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </body>
 </html>
