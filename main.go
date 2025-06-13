@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/segaak/erpbl/database/database"
@@ -10,8 +11,8 @@ import (
 func main() {
 	// Example usage of the function
 	db := database.InitDatabase()
-
 	server := http.NewServeMux()
+	fmt.Println("Starting server on :8080")
 	routes.MapRoutes(server, db)
 	server.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("views"))))
 	http.ListenAndServe(":8080", server)
