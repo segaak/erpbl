@@ -1,9 +1,36 @@
 <?php
+session_start();
 include 'koneksi.php';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $metode = $_POST['metode_pembayaran'] ?? '';
+    $total = $_POST['total_bayar'] ?? 0;
+    $tanggal = date('Y-m-d H:i:s');
 
-// Anggap user sudah login dan punya session user_i
+    // Simpan ke tabel pembayaran
+    $stmt = $conn->prepare("INSERT INTO pembayaran (metode_pembayaran, total_bayar, tanggal) VALUES (?, ?, ?)");
+    $stmt->bind_param("sis", $metode, $total, $tanggal);
+
+    if ($stmt->execute()) {
+        $id_pembayaran = $stmt->insert_id;
+
+        // Kosongkan keranjang
+        $_SESSION['cart'] = [];
+
+        // Simpan ID pembayaran ke session untuk QR
+        $_SESSION['last_payment_id'] = $id_pembayaran;
+        
+        // Redirect ke halaman QR
+        header("Location: show_qr.php?id=" . $id_pembayaran);
+        exit;
+    } else {
+        echo "Gagal menyimpan pembayaran.";
+    }
+} else {
+    echo "Akses tidak valid.";
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">

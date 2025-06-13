@@ -136,10 +136,9 @@ session_start();
       <p class="text-muted small"><?= $row['kategori']; ?></p>
 
       <p><strong>Rp<?= number_format($row['harga']); ?></strong></p>
-   <form action="add_to_cart.php" method="post">
-  <input type="hidden" name="id_produk" value="<?= $row['ID_Produk']; ?>">
-  <input type="hidden" name="quantity" value="1">
-  <button type="submit" class="btn btn-add w-100 mt-2">+ Add</button>
+       <button type="submit" class="btn btn-add w-100 mt-2">+ Add</button>
+  
+ 
 </form>
 
 
