@@ -1,0 +1,96 @@
+{{ define "ownerdashboard" }}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/static/style.css">
+	<title>Owner Dashboard Page</title>
+	
+</head>
+
+<body>
+
+
+	<!-- SIDEBAR -->
+
+	{{ template "sidebar" . }}
+
+
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		{{ template "navbar" . }}
+
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+           <h1 class="owner-dashboard-title">Dashboard</h1>
+
+            <!-- Revenue Chart -->
+            <div class="owner-revenue-section">
+                <div class="owner-revenue-header">
+                    <h2>Revenue</h2>
+                    <select>
+                        <option>October</option>
+                    </select>
+                </div>
+                <img src="/static/images/chart-placeholder.png" alt="Chart" class="owner-revenue-chart">
+                <div class="owner-revenue-legend">
+                    <span><span class="dot sales"></span>Sales</span>
+                    <span><span class="dot profit"></span>Profit</span>
+                </div>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="owner-summary-cards">
+                <!-- Customers -->
+                <div class="owner-card owner-customers-card">
+                    <h3>Customers</h3>
+                    <div class="owner-customers-content">
+                        <div class="owner-customers-circle"></div>
+                        <div>
+                            <p class="owner-customers-new">34,249 New Customers</p>
+                            <p class="owner-customers-repeated">1,420 Repeated</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Penjualan -->
+                <div class="owner-card owner-sales-card">
+                    <h3>Total Penjualan</h3>
+                    <p class="owner-sales-value">Rp 10,000,000</p>
+                    <p class="owner-sales-down">⬇ 4.3% turun dari minggu lalu</p>
+                </div>
+
+                <!-- Total Pesanan -->
+                <div class="owner-card owner-orders-card">
+                    <h3>Total Pesanan</h3>
+                    <p class="owner-orders-value">2040</p>
+                    <p class="owner-orders-up">⬆ 1.8% naik dari minggu lalu</p>
+                </div>
+
+                <!-- Sales Analytics -->
+                <div class="owner-card owner-analytics-card">
+                    <h3>Sales Analytics</h3>
+                    <img src="/static/images/analytics-placeholder.png" alt="Sales Analytics" class="owner-analytics-img">
+                </div>
+            </div>
+        </div>
+    </div>
+			</main>
+	</section>
+	<!-- CONTENT -->
+
+	
+
+</body>
+
+</html>
+{{ end }}

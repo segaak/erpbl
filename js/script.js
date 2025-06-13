@@ -1,16 +1,17 @@
 const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
 
 // Apply the active class based on localStorage
-	document.addEventListener('DOMContentLoaded', () => {
-		const currentPath = window.location.pathname;
-		const links = document.querySelectorAll('.ss-menu-item a');
+document.addEventListener('DOMContentLoaded', () => {
+	const currentPath = window.location.pathname;
+	const links = document.querySelectorAll('.ss-menu-item a');
 
-		links.forEach(link => {
-			if (link.getAttribute('href') === currentPath) {
-				link.classList.add('active');
-			}
-		});
+	links.forEach(link => {
+		if (link.getAttribute('href') === currentPath) {
+			link.classList.add('active');
+			link.parentElement.classList.add('active');
+		}
 	});
+});
 
 // Add click event listeners to update the active class and store in localStorage
 allSideMenu.forEach(item => {
