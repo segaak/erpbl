@@ -1,0 +1,101 @@
+{{ define "ownerproduct" }}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/static/style.css">
+	<title>Owner Dashboard Page</title>
+	
+</head>
+
+<body>
+
+
+	<!-- SIDEBAR -->
+
+	{{ template "sidebar" . }}
+
+
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		{{ template "navbar" . }}
+
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+         <div class="owner-report-container">
+    <h1 class="owner-report-title">Owner Report</h1>
+
+    <!-- Product Sales Chart -->
+    <div class="owner-report-chart-section">
+      <div class="owner-report-chart-header">
+        <h2>Product Sales</h2>
+        <select>
+          <option>October</option>
+        </select>
+      </div>
+      <img src="/static/images/bar-chart-placeholder.png" alt="Product Sales Chart" class="owner-report-chart-img">
+    </div>
+
+    <!-- Detail Product Table -->
+    <div class="owner-report-table-section">
+      <h2>Detail Product</h2>
+      <table class="owner-report-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Piece</th>
+            <th>Piece</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Beras 5KG</td>
+            <td>Beras 5KG</td>
+            <td>Bahan Pokok</td>
+            <td>Rp 65,000</td>
+            <td>63</td>
+            <td>63</td>
+            <td>
+              <button class="owner-report-btn edit">✎</button>
+              <button class="owner-report-btn delete">🗑</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Beras 5KG</td>
+            <td>Beras 5KG</td>
+            <td>Bahan Pokok</td>
+            <td>Rp 65,000</td>
+            <td>63</td>
+            <td>63</td>
+            <td>
+              <button class="owner-report-btn edit">✎</button>
+              <button class="owner-report-btn delete">🗑</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+			</main>
+	</section>
+	<!-- CONTENT -->
+
+	
+
+</body>
+
+</html>
+{{ end }}

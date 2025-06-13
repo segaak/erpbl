@@ -12,4 +12,8 @@ func MapRoutes(server *http.ServeMux, db *sql.DB) {
 	server.HandleFunc("/product", controller.ProductHandler(db))
 	server.HandleFunc("/order", controller.OrderHandler(db)) // GANTI DI SINI
 	server.HandleFunc("/report", controller.ReportHandler(db))
+	server.HandleFunc("/stock", controller.StockHandler(db))
+	server.HandleFunc("/ownerdashboard", controller.OwnerDashboardHandler(db))
+	server.HandleFunc("/ownerreport", controller.OwnerReportHandler(db))
+	server.HandleFunc("/ownerproduct", controller.OwnerProductHandler(db))
 }

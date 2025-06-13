@@ -60,7 +60,6 @@ body {
 	position: fixed;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 }
 
 .ss-brand {
@@ -85,11 +84,11 @@ body {
 .ss-menu {
 	list-style: none;
 	padding: 0;
-	margin: 0 0 20px 0;
+	margin: 0;
 }
 
 .ss-menu-item {
-	margin: 10px 0;
+	margin: 8px 0;
 }
 
 .ss-menu-item a {
@@ -104,39 +103,27 @@ body {
 }
 
 .ss-menu-item a:hover {
-	background: #f0f0f0;
+	background-color: #e0e7ff;
+	color: #3b82f6;
 }
 
-.ss-menu-item.active a,
-.ss-active-link {
-	background: #3b82f6;
+.ss-menu-item a.active,
+.ss-menu-item.active a {
+	background-color: #3b82f6;
 	color: #fff !important;
+	font-weight: 500;
 }
 
 .ss-section-label {
 	font-size: 12px;
 	color: #999;
-	margin: 10px 0 5px 15px;
+	margin: 20px 0 5px 15px;
 	text-transform: uppercase;
 	font-weight: 600;
 }
 
 .ss-bottom {
 	margin-top: auto;
-}
-.ss-menu-item a.active {
-	background-color: #3b82f6;
-	color: white !important;
-	font-weight: 500;
-}
-.ss-menu-item a:hover {
-	background-color: #e0e7ff; /* hover bg */
-	color: #3b82f6;
-}
-li.active > a {
-  background-color: #3b82f6;
-  color: white !important;
-  font-weight: 500;
 }
 
 /* SIDEBAR */
@@ -760,7 +747,118 @@ li.active > a {
   background-color: #2e6ee6;
 }
 
+/* owner dashboard */
+.owner-revenue-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
 
+.owner-revenue-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.owner-revenue-chart {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+.owner-revenue-legend {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+    color: #555;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.dot.sales {
+    background-color: #f87171;
+}
+
+.dot.profit {
+    background-color: #c084fc;
+}
+
+.owner-summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.owner-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.owner-customers-content {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.owner-customers-circle {
+    width: 60px;
+    height: 60px;
+    background-color: #dbeafe;
+    border-radius: 50%;
+    position: relative;
+}
+
+.owner-customers-circle::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 36px;
+    height: 36px;
+    border: 4px dotted #3b82f6;
+    border-radius: 50%;
+}
+
+.owner-customers-new {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.owner-customers-repeated {
+    color: #6b7280;
+}
+
+.owner-sales-value,
+.owner-orders-value {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+.owner-sales-down {
+    color: #ef4444;
+}
+
+.owner-orders-up {
+    color: #10b981;
+}
+
+.owner-analytics-img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    margin-top: 10px;
+}
 
 
 
@@ -779,9 +877,221 @@ li.active > a {
 	}
 }
 
+/* stock */
+.stock-title {
+  margin-bottom: 20px;
+  color: #333;
+}
 
+.stock-search-bar {
+  float: right;
+  margin-bottom: 10px;
+}
 
+.stock-search-input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  width: 200px;
+}
 
+.stock-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.stock-table thead {
+  background-color: #fff;
+}
+
+.stock-table th,
+.stock-table td {
+  text-align: left;
+  padding: 12px 15px;
+}
+
+.stock-table th {
+  color: #555;
+  font-size: 14px;
+}
+
+.stock-table td {
+  background-color: #fff;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  font-size: 14px;
+}
+
+.stock-table td:last-child {
+  text-align: center;
+}
+
+.stock-btn {
+  padding: 6px 10px;
+  margin: 0 2px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.stock-btn-edit {
+  background-color: #eef2ff;
+  color: #333;
+}
+
+.stock-btn-delete {
+  background-color: #ffeef0;
+  color: #e00;
+}
+
+.stock-footer {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #666;
+}
+
+.stock-pagination {
+  float: right;
+}
+
+.stock-pagination button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 5px;
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+/* owner report */
+.owner-report-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.owner-report-title {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.owner-report-chart-section {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.owner-report-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.owner-report-chart-img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  margin-top: 15px;
+}
+
+.owner-report-table-section {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.owner-report-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.owner-report-table th,
+.owner-report-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.owner-report-table th {
+  background-color: #f9fafb;
+  font-weight: 600;
+}
+
+.owner-report-btn {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 4px;
+}
+
+.owner-report-btn.edit {
+  background-color: #e0f2fe;
+  color: #0284c7;
+}
+
+.owner-report-btn.delete {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+/* owner report  */
+
+/* owner transaksi report */
+.owner-transaction-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.owner-transaction-title {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.owner-transaction-chart-section {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.owner-transaction-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.owner-transaction-chart-img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  margin-top: 15px;
+}
+
+.owner-transaction-table-section {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.owner-transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.owner-transaction-table th,
+.owner-transaction-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.owner-transaction-table th {
+  background-color: #f9fafb;
+  font-weight: 600;
+}
 
 
 @media screen and (max-width: 576px) {

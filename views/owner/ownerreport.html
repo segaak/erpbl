@@ -1,0 +1,97 @@
+{{ define "ownerreport" }}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/static/style.css">
+	<title>Owner Dashboard Page</title>
+	
+</head>
+
+<body>
+
+
+	<!-- SIDEBAR -->
+
+	{{ template "sidebar" . }}
+
+
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		{{ template "navbar" . }}
+
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+        <div class="owner-transaction-container">
+    <h1 class="owner-transaction-title">Owner Transaction Report</h1>
+
+    <!-- Transaction Chart -->
+    <div class="owner-transaction-chart-section">
+      <div class="owner-transaction-chart-header">
+        <h2>Transaction</h2>
+        <select>
+          <option>2025</option>
+        </select>
+      </div>
+      <img src="/static/images/line-chart-placeholder.png" alt="Transaction Chart" class="owner-transaction-chart-img">
+    </div>
+
+    <!-- Detail Transaction Table -->
+    <div class="owner-transaction-table-section">
+      <h2>Detail Transaksi</h2>
+      <table class="owner-transaction-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Quantity</th>
+            <th>Total Transaction</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>March 2025</td>
+            <td>2</td>
+            <td>100</td>
+            <td>Rp 4,000</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>April 2025</td>
+            <td>2</td>
+            <td>100</td>
+            <td>Rp 4,000</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Mei 2025</td>
+            <td>2</td>
+            <td>100</td>
+            <td>Rp 4,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+			</main>
+	</section>
+	<!-- CONTENT -->
+
+	
+
+</body>
+
+</html>
+{{ end }}
