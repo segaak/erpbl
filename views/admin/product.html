@@ -39,37 +39,19 @@
 				</div>
 
 
-				<div class="products">
-					<div class="product-card">
-						<div class="favorite">♥</div>
-						<img src="beras.jpg" alt="Beras">
-						<div class="product-name">Beras 5kg</div>
-						<div class="price">Rp 66.000</div>
-						<div class="rating">★★★★☆ (1131)</div>
-						<button class="edit-btn">Edit Product</button>
-					</div>
-
-					<div class="product-card">
-						<div class="favorite">♥</div>
-						<img src="gula.jpg" alt="Gula">
-						<div class="product-name">Gula 1Kg</div>
-						<div class="price">Rp 13.200</div>
-						<div class="rating">★★★★☆ (964)</div>
-						<button class="edit-btn">Edit Product</button>
-					</div>
-
-					<div class="product-card">
-						<div class="favorite">♥</div>
-						<img src="telur.jpg" alt="Telur">
-						<div class="product-name">Telur 5kg</div>
-						<div class="price">Rp 110.231</div>
-						<div class="rating">★★★★★ (2101)</div>
-						<button class="edit-btn">Edit Product</button>
-					</div>
-
-					<!-- Tambahkan produk lainnya sesuai kebutuhan -->
-				</div>
-			</div>
+				  <div class="admin-product-container">
+    <div class="admin-product-grid">
+      {{range .Products}}
+      <div class="admin-product-card">
+        <img src="/uploads/{{.Gambar}}" alt="{{.NamaProduk}}" class="admin-product-image">
+        <div class="admin-product-name">{{.NamaProduk}}</div>
+        <div class="admin-product-price">Rp {{.Harga}}</div>
+        <div class="admin-product-category">{{.Kategori}}</div>
+      <a href="/admin/editproduct?id={{.IDProduk}}" class="btn btn-primary">Edit Produk</a>
+      </div>
+      {{end}}
+    </div>
+  </div>
 		</main>
 
 		<!-- MAIN -->

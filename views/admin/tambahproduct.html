@@ -30,7 +30,7 @@
 
 		<!-- MAIN -->
 		<main>
-			<div class="tambna-wrapper">
+			<!-- <div class="tambna-wrapper">
 				<div class="tambah-title">tambah Products</div>
 				<form method="POST" action="/admin/tambahproduct" enctype="multipart/form-data">
 					<label>Nama Produk:</label>
@@ -52,6 +52,43 @@
 					<input type="file" name="gambar" accept="image/*" required><br>
 
 					<button type="submit">Simpan</button>
+				</form>
+			</div> -->
+			<h2>Tambah Product</h2>
+			<div class="tambah-container">
+
+				<form method="POST" action="/admin/tambahproduct" enctype="multipart/form-data"
+					class="formProduk-container">
+
+					<label class="formProduk-label">Nama Produk:</label>
+					<input type="text" name="nama_produk" placeholder="Masukkan Nama Produk" required
+						class="formProduk-input">
+
+					<label class="formProduk-label">Harga:</label>
+					<input type="number" name="harga" placeholder="Masukkan Harga" required class="formProduk-input">
+
+					<label class="formProduk-label">Kategori:</label>
+					<select name="kategori" required class="formProduk-input">
+						<option disabled selected>Opsi Kategori</option>
+						<option value="elektronik">Elektronik</option>
+						<option value="fashion">Fashion</option>
+						<option value="makanan">Makanan</option>
+					</select>
+
+					<label class="formProduk-label">Stok:</label>
+					<input type="number" name="stok" placeholder="Masukkan Stok" required class="formProduk-input">
+
+					<label class="formProduk-label">Deskripsi:</label>
+					<textarea name="deskripsi" placeholder="Masukkan Deskripsi" required
+						class="formProduk-input"></textarea>
+
+					<label class="formProduk-label">Image:</label>
+					<label class="formProduk-upload-label">
+						<input type="file" name="gambar" accept="image/*" required class="formProduk-hidden-input">
+						⬆️ Upload Image
+					</label>
+
+					<button type="submit" class="formProduk-submit-btn">Submit</button>
 				</form>
 			</div>
 		</main>
