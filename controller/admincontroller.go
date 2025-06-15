@@ -20,7 +20,7 @@ func DashboardHandler(db *sql.DB) func(http.ResponseWriter, *http.Request) {
 
 		// Data bisa diisi dari db kalau kamu mau
 		err = tmpl.ExecuteTemplate(w, "dashboard", map[string]interface{}{
-	"CurrentPath": r.URL.Path,
-})
+			"CurrentPath": r.URL.Path,
+		})
 	}
 }

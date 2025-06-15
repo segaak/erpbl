@@ -634,49 +634,57 @@ body {
 	/* product */
 
 	/* order list */
-	.table-container {
-	margin: 20px;
-	background: #fff;
-	border-radius: 10px;
-	padding: 20px;
-	box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+.order-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 1rem;
+	background: white;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	overflow: hidden;
 }
 
-.order-table {
+.order-table th,
+.order-table td {
+	padding: 12px 16px;
+	text-align: left;
+	white-space: nowrap;
+}
+
+.order-table th {
+	background-color: #f3f4f6;
+	color: #111827;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.product-dropdown {
+	background-color: #f9fafb;
+}
+
+.inner-product-table {
 	width: 100%;
 	border-collapse: collapse;
 }
 
-.order-table th, .order-table td {
-	padding: 12px;
-	text-align: left;
-	border-bottom: 1px solid #e0e0e0;
+.inner-product-table th,
+.inner-product-table td {
+	padding: 8px 12px;
+	border-top: 1px solid #e5e7eb;
+	font-size: 14px;
+}
+.toggle-btn {
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: #2563eb;
+	font-weight: 500;
+	padding: 6px 12px;
+	font-size: 14px;
 }
 
-.order-table th {
-	background-color: #f8f9fa;
-}
-
-.status {
-	padding: 5px 10px;
-	border-radius: 10px;
-	font-size: 0.8em;
-	font-weight: bold;
-}
-
-.status.completed {
-	background-color: #d4edda;
-	color: #155724;
-}
-
-.status.processing {
-	background-color: #e2e3ff;
-	color: #383dff;
-}
-
-.status.rejected {
-	background-color: #f8d7da;
-	color: #721c24;
+.toggle-btn:hover {
+	text-decoration: underline;
 }
 
 /* report */
@@ -886,89 +894,108 @@ body {
 }
 
 /* stock */
+/* Container utama */
+.stock-container {
+  padding: 2rem;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Judul Halaman */
 .stock-title {
-  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
   color: #333;
 }
 
-.stock-search-bar {
-  float: right;
-  margin-bottom: 10px;
+/* Wrapper tabel agar bisa overflow kalau lebar kecil */
+.stock-table-wrapper {
+  overflow-x: auto;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
-.stock-search-input {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  width: 200px;
-}
-
+/* Tabel Produk */
 .stock-table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 10px;
+  border-collapse: collapse;
+  min-width: 800px;
 }
 
 .stock-table thead {
-  background-color: #fff;
+  background-color: #f1f3f5;
 }
 
 .stock-table th,
 .stock-table td {
   text-align: left;
-  padding: 12px 15px;
+  padding: 1rem;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #e9ecef;
 }
 
 .stock-table th {
   color: #555;
-  font-size: 14px;
+  font-weight: 600;
 }
 
 .stock-table td {
-  background-color: #fff;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
-  font-size: 14px;
-}
-
-.stock-table td:last-child {
-  text-align: center;
-}
-
-.stock-btn {
-  padding: 6px 10px;
-  margin: 0 2px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.stock-btn-edit {
-  background-color: #eef2ff;
   color: #333;
+  vertical-align: middle;
 }
 
-.stock-btn-delete {
-  background-color: #ffeef0;
-  color: #e00;
+/* Gambar Produk */
+.stock-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 6px;
 }
 
-.stock-footer {
-  margin-top: 10px;
-  font-size: 13px;
+/* Tombol Aksi */
+.btn-edit,
+.btn-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-right: 8px;
+  transition: transform 0.2s;
+}
+
+.btn-edit:hover {
+  color: #0d6efd;
+  transform: scale(1.1);
+}
+
+.btn-delete:hover {
+  color: #dc3545;
+  transform: scale(1.1);
+}
+
+/* Pagination */
+.stock-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  font-size: 0.9rem;
   color: #666;
 }
 
-.stock-pagination {
-  float: right;
+.page-btn {
+  background-color: #e9ecef;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 5px;
 }
 
-.stock-pagination button {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  margin-left: 5px;
-  background-color: #ddd;
-  cursor: pointer;
+.page-btn:hover {
+  background-color: #ced4da;
 }
 
 /* owner report */

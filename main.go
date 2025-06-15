@@ -15,5 +15,7 @@ func main() {
 	fmt.Println("Starting server on :8080")
 	routes.MapRoutes(server, db)
 	server.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("views"))))
+	server.Handle("/customer-image/", http.StripPrefix("/customer-image/", http.FileServer(http.Dir("views/customer/images"))))
+
 	http.ListenAndServe(":8080", server)
 }

@@ -3,92 +3,77 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/static/style.css">
-	<title>stock Page</title>
-	
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+  <title>stock Page</title>
+
 </head>
 
 <body>
 
 
-	<!-- SIDEBAR -->
+  <!-- SIDEBAR -->
 
-	{{ template "sidebar" . }}
+  {{ template "sidebar" . }}
+  <!-- SIDEBAR -->
+  <!-- CONTENT -->
+  <section id="content">
+    <!-- NAVBAR -->
+    {{ template "navbar" . }}
+    <!-- NAVBAR -->
+
+    <!-- MAIN -->
+    <main>
+      <h2 class="stock-title">Product Stock</h2>
+      <div class="stock-container">
+        <h2 class="stock-title">Product Stock</h2>
+        <div class="stock-table-wrapper">
+          <table class="stock-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Piece</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{range .stock}}
+              <tr>
+                <td><img src="/customer-image/{{ .Gambar }}" alt="{{.NamaProduk}}" class="admin-product-image"></td>
+                <td>{{.NamaProduk}}</td>
+                <td>{{.Kategori}}</td>
+                <td>Rp {{.Harga}}</td>
+                <td>{{.Stok}}</td>
+                <td>
+                  <a href="/admin/editproduct?id={{.IDProduk}}" class="btn-edit">✎</a>
+                  <a href="/admin/deleteproduct?id={{.IDProduk}}" class="btn-delete"
+                    onclick="return confirm('Yakin ingin hapus produk ini?')">🗑</a>
+                </td>
+              </tr>
+              {{end}}
+            </tbody>
+
+          </table>
+          <div class="stock-pagination">
+            <span>Showing 1–09 of 78</span>
+            <div>
+              <button class="page-btn">‹</button>
+              <button class="page-btn">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- MAIN -->
+  </section>
+  <!-- CONTENT -->
 
 
-	<!-- SIDEBAR -->
-
-
-
-	<!-- CONTENT -->
-	<section id="content">
-		<!-- NAVBAR -->
-		{{ template "navbar" . }}
-
-		<!-- NAVBAR -->
-
-		<!-- MAIN -->
-		<main>
-			 <h2 class="stock-title">Product Stock</h2>
-
-  <div class="stock-search-bar">
-    <input type="text" class="stock-search-input" placeholder="Search product name">
-  </div>
-
-  <table class="stock-table">
-    <thead>
-      <tr>
-        <th>Image</th>
-        <th>Product Name</th>
-        <th>Category</th>
-        <th>Price</th>
-        <th>Piece</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><img src="#" alt="img" width="40"></td>
-        <td>Beras 5KG</td>
-        <td>Bahan Pokok</td>
-        <td>Rp 65,000</td>
-        <td>63</td>
-        <td>
-          <button class="stock-btn stock-btn-edit">✏️</button>
-          <button class="stock-btn stock-btn-delete">🗑️</button>
-        </td>
-      </tr>
-      <tr>
-        <td><img src="#" alt="img" width="40"></td>
-        <td>Minyak 1 Liter</td>
-        <td>Bahan Pokok</td>
-        <td>Rp 13,000</td>
-        <td>13</td>
-        <td>
-          <button class="stock-btn stock-btn-edit">✏️</button>
-          <button class="stock-btn stock-btn-delete">🗑️</button>
-        </td>
-      </tr>
-      <!-- Tambah baris produk lainnya -->
-    </tbody>
-  </table>
-
-  <div class="stock-footer">
-    Showing 1–09 of 78
-    <div class="stock-pagination">
-      <button>◀</button>
-      <button>▶</button>
-    </div>
-  </div>
-		</main>
-
-		<!-- MAIN -->
-	</section>
-	<!-- CONTENT -->
-
-	
 
 </body>
 

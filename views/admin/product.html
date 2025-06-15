@@ -5,7 +5,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" href="/static/style.css">
 	<title>Product Page</title>
 
@@ -35,23 +36,23 @@
 			<div class="product">
 				<div class="product-judul">
 					<h3>Detail transaksi</h3>
-					  <a href="/admin/tambahproduct" class="btn btn-primary">Tambah Produk</a>
+					<a href="/admin/tambahproduct" class="btn btn-primary">Tambah Produk</a>
 				</div>
 
 
-				  <div class="admin-product-container">
-    <div class="admin-product-grid">
-      {{range .Products}}
-      <div class="admin-product-card">
-        <img src="/uploads/{{.Gambar}}" alt="{{.NamaProduk}}" class="admin-product-image">
-        <div class="admin-product-name">{{.NamaProduk}}</div>
-        <div class="admin-product-price">Rp {{.Harga}}</div>
-        <div class="admin-product-category">{{.Kategori}}</div>
-      <a href="/admin/editproduct?id={{.IDProduk}}" class="btn btn-primary">Edit Produk</a>
-      </div>
-      {{end}}
-    </div>
-  </div>
+				<div class="admin-product-container">
+					<div class="admin-product-grid">
+						{{range .Products}}
+						<div class="admin-product-card">
+							<img src="/customer-image/{{ .Gambar }}" alt="{{.NamaProduk}}" class="admin-product-image">
+							<div class="admin-product-name">{{.NamaProduk}}</div>
+							<div class="admin-product-price">Rp {{.Harga}}</div>
+							<div class="admin-product-category">{{.Kategori}}</div>
+							<a href="/admin/editproduct?id={{.IDProduk}}" class="btn btn-primary">Edit Produk</a>
+						</div>
+						{{end}}
+					</div>
+				</div>
 		</main>
 
 		<!-- MAIN -->

@@ -19,10 +19,11 @@ type Product struct {
 
 func EditProductHandler(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		idStr := r.URL.Query().Get("id")
-		if idStr == "" {
-			http.Error(w, "Missing product ID", http.StatusBadRequest)
-			return
+		var idStr string
+		if r.Method == http.MethodPost {
+			idStr = r.FormValue("id") // ambil dari form POST
+		} else {
+			idStr = r.URL.Query().Get("id") // ambil dari query GET
 		}
 
 		id, err := strconv.Atoi(idStr)
@@ -31,17 +32,33 @@ func EditProductHandler(db *sql.DB) http.HandlerFunc {
 			return
 		}
 
+		if r.Method == http.MethodPost {
+			// Handle form submission (update product)
+			nama := r.FormValue("nama_produk")
+			harga, _ := strconv.Atoi(r.FormValue("harga"))
+			kategori := r.FormValue("kategori")
+			stok, _ := strconv.Atoi(r.FormValue("stok"))
+			deskripsi := r.FormValue("deskripsi")
+
+			// TODO: handle upload file gambar kalau perlu
+
+			_, err := db.Exec(`
+				UPDATE produk SET nama_produk=?, harga=?, kategori=?, stok=?, deskripsi=? WHERE ID_Produk=?
+			`, nama, harga, kategori, stok, deskripsi, id)
+			if err != nil {
+				http.Error(w, "Failed to update product", http.StatusInternalServerError)
+				return
+			}
+
+			// Redirect biar gak looping
+			http.Redirect(w, r, "/admin/stock", http.StatusSeeOther)
+			return
+		}
+
+		// GET method: fetch product data dan tampilkan form
 		var p Product
 		query := `SELECT ID_Produk, nama_produk, harga, kategori, stok, deskripsi, gambar FROM produk WHERE ID_Produk = ?`
-		err = db.QueryRow(query, id).Scan(
-			&p.ID_Produk,
-			&p.NamaProduk,
-			&p.Harga,
-			&p.Kategori,
-			&p.Stok,
-			&p.Deskripsi,
-			&p.Gambar,
-		)
+		err = db.QueryRow(query, id).Scan(&p.ID_Produk, &p.NamaProduk, &p.Harga, &p.Kategori, &p.Stok, &p.Deskripsi, &p.Gambar)
 		if err != nil {
 			http.Error(w, "Product not found", http.StatusNotFound)
 			return
