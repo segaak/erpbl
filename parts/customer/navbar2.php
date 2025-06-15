@@ -108,7 +108,7 @@ $foto_profil = 'images/user-default.png';
 <header>
   <div class="logo">
     <img src="images/logo.jpg" alt="Logo">
-    <h1>SI-SUPLY</h1>
+    <h1>SI-SUPPLY</h1>
   </div>
 
   <form class="search-form" action="search.php" method="GET">

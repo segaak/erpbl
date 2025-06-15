@@ -1,43 +1,15 @@
 <?php
 session_start();
-include 'koneksi.php';
 
-// Cek validitas permintaan
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['total_bayar']) || empty($_SESSION['cart'])) {
     header("Location: checkout.php");
     exit;
 }
 
-// Ambil data
-$metode = $_POST['metode_pembayaran'] ?? 'QRIS';
-$total = (int)$_POST['total_bayar'];
-$tanggal = date('Y-m-d H:i:s');
-
-// Simpan ke tabel pembayaran
-$stmt = $conn->prepare("INSERT INTO pembayaran (metode, total, tanggal) VALUES (?, ?, ?)");
-$stmt->bind_param("sis", $metode, $total, $tanggal);
-$stmt->execute();
-$id_pembayaran = $conn->insert_id;
-
-// Simpan ke tabel pesanan
-foreach ($_SESSION['cart'] as $id_produk => $jumlah) {
-    $produk = $conn->query("SELECT harga FROM produk WHERE ID_Produk = $id_produk")->fetch_assoc();
-    if (!$produk) continue;
-
-    $harga_satuan = (int)$produk['harga'];
-    $subtotal = $harga_satuan * $jumlah;
-
-    $stmt = $conn->prepare("INSERT INTO pesanan (id_pembayaran, id_produk, jumlah, harga_satuan, subtotal) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("iiiii", $id_pembayaran, $id_produk, $jumlah, $harga_satuan, $subtotal);
-    $stmt->execute();
-}
-
-// Reset keranjang belanja
-unset($_SESSION['cart']);
-
-// Simulasi gambar QR Code (gantilah dengan QR generator nyata kalau diperlukan)
-$qrImage = "img/qr-placeholder.png"; // contoh statis
+$_SESSION['metode_pembayaran'] = $_POST['metode_pembayaran'] ?? 'QRIS';
+$_SESSION['total_bayar'] = (int)$_POST['total_bayar'];
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -89,19 +61,16 @@ $qrImage = "img/qr-placeholder.png"; // contoh statis
 <body>
   <div class="qr-container">
     <h4>Scan untuk Membayar</h4>
-    <p class="text-muted">Gunakan aplikasi <strong><?= htmlspecialchars($metode) ?></strong></p>
+    <p class="text-muted">Gunakan aplikasi <strong><?= htmlspecialchars($_SESSION['metode_pembayaran']) ?></strong></p>
+    <img src="images/qr_sample.jpeg" alt="QR Code" class="qr-image">
+    <h5 class="mt-4">Total: <strong>Rp<?= number_format($_SESSION['total_bayar'], 0, ',', '.') ?></strong></h5>
 
-    <img src="<?= htmlspecialchars($qrImage); ?>" alt="QR Code" class="qr-image">
-
-    <h5 class="mt-4">Total: <strong>Rp<?= number_format($total, 0, ',', '.') ?></strong></h5>
-
-    <p class="text-muted mt-3">Setelah pembayaran berhasil, klik tombol di bawah untuk melihat invoice Anda.</p>
-
-    <a href="invoice.php?id=<?= $id_pembayaran ?>" class="btn btn-success mt-3">Lihat Invoice</a>
+    <form action="bayar.php" method="post">
+      <button type="submit" class="btn btn-success mt-3">Pay Now</button>
+    </form>
   </div>
 
   <br>
-
   <div class="qr-container">
     <h6>Instruksi Pembayaran</h6>
     <ol class="mb-2 text-start">
@@ -111,7 +80,7 @@ $qrImage = "img/qr-placeholder.png"; // contoh statis
       <li>Setelah berhasil, klik tombol di atas untuk melihat invoice</li>
     </ol>
     <div class="choose-method">
-      <a href="checkout.php">&larr; Pilih Metode Pembayaran Lain</a>
+      <a href="pembayaran.php">&larr; Pilih Metode Pembayaran Lain</a>
     </div>
   </div>
 </body>

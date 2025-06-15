@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Arahkan berdasarkan roles
             if ($user['roles'] == 'admin') {
-                header("Location: ../admin/dashboard.php"); // admin
+                header("Location: http://localhost:8080/"); // admin
             } else if ($user['roles'] == 'customer') {
                 header("Location: ../customer/produk.php"); // user
             } else {
