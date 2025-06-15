@@ -562,66 +562,74 @@ body {
       border-radius: 6px;
       cursor: pointer;
     }
-	  .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 20px;
+	   .admin-product-container {
+      padding: 2rem;
     }
-	.product-card:hover {
-	box-shadow: 0 0 10px rgba(0,0,0,0.1);
-	transform: scale(1.02);
-	transition: all 0.3s ease;
-}
 
-    .product-card {
-      background: white;
-      border-radius: 12px;
+    .admin-product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: flex-start;
+    }
+
+    .admin-product-card {
+      width: 230px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       padding: 16px;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s ease;
     }
 
-    .product-card img {
-      width: 100px;
-      height: 100px;
+    .admin-product-card:hover {
+      transform: scale(1.02);
+    }
+
+    .admin-product-image {
+      width: 100%;
+      height: 160px;
       object-fit: contain;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      background: #f9f9f9;
     }
 
-    .product-name {
-      font-weight: bold;
+    .admin-product-name {
+      font-size: 16px;
+      font-weight: 600;
       margin-bottom: 4px;
+      text-align: center;
     }
 
-    .price {
-      color: #e07b00;
-      font-weight: bold;
-      margin-bottom: 4px;
-    }
-
-    .rating {
+    .admin-product-price {
       font-size: 14px;
-      color: #ffa500;
+      color: #007bff;
+      margin-bottom: 6px;
+    }
+
+    .admin-product-category {
+      font-size: 13px;
+      color: #666;
       margin-bottom: 8px;
     }
 
-    .edit-btn {
-      background: #007bff;
-      color: white;
+    .admin-product-edit-btn {
+      background-color: #007bff;
+      color: #fff;
       border: none;
       padding: 8px 12px;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.2s;
     }
 
-    .favorite {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      color: #f44336;
-      font-size: 20px;
-      cursor: pointer;
+    .admin-product-edit-btn:hover {
+      background-color: #0056b3;
     }
 	/* product */
 
@@ -1093,6 +1101,191 @@ body {
   font-weight: 600;
 }
 
+/* tambah product */
+ /* .tambah-wrapper {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #f7f8fa;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            font-family: Arial, sans-serif;
+        }
+
+        .tambah-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .tambah-form-group {
+            margin-bottom: 15px;
+        }
+
+        .tambah-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .tambah-input,
+        .tambah-textarea,
+        .tambah-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .tambah-file {
+            padding: 5px;
+        }
+
+        .tambah-submit-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .tambah-submit-btn:hover {
+            background-color: #0056b3;
+        } */
+
+        .tambah-container {
+            /* max-width: 600px; */
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #f7f8fa;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            font-family: Arial, sans-serif;
+        }
+.formProduk-container {
+  /* max-width: 500px; */
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.formProduk-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #555;
+}
+
+.formProduk-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.formProduk-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.formProduk-upload-label {
+  display: inline-block;
+  background-color: #3b82f6;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.formProduk-upload-label:hover {
+  background-color: #2563eb;
+}
+
+.formProduk-hidden-input {
+  display: none;
+}
+
+.formProduk-submit-btn {
+  display: block;
+  width: 100px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.formProduk-submit-btn:hover {
+  background-color: #2563eb;
+}
+
+/* edit product */
+.edit-product-container {
+  
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+.edit-product-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.edit-product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edit-product-field label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.edit-product-field input,
+.edit-product-field textarea {
+  padding: 10px;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.edit-product-action {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.edit-product-submit-btn {
+  background-color: #2a63f7;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
 
 @media screen and (max-width: 576px) {
 	#content nav form .form-input input {
