@@ -105,10 +105,32 @@ if (!$produk) {
 
   <div class="row">
     <!-- Gambar Produk -->
-    <div class="col-md-4 text-center">
-      <img src="img/<?= $produk['gambar']; ?>" alt="<?= $produk['nama_produk']; ?>" class="product-image mb-3">
-      <!-- <div class="badge bg-info text-white p-2">Stock = <?= $produk['stok']; ?></div> -->
+   <div class="col-md-4 text-center">
+  <div class="position-relative border rounded p-2" style="border-color: #00aaff; border-width: 2px;">
+    <!-- Gambar Utama -->
+    <img src="images/<?= $produk['gambar']; ?>" alt="<?= $produk['nama_produk']; ?>" class="img-fluid mb-2" id="mainImage">
+
+    <!-- Badge 1KG -->
+    <div class="position-absolute top-50 end-0 translate-middle-y bg-light text-primary fw-bold px-2 py-1" style="writing-mode: vertical-rl; transform: rotate(180deg); border-radius: 0 5px 5px 0;">
+      1 KG
     </div>
+
+    <!-- Label Nama Produk -->
+    <div class="bg-primary text-white fw-bold py-1 mt-2 rounded-end-pill" style="width: 100px; margin: auto; border-radius: 0 20px 20px 0;">
+      <?= $produk['nama_produk']; ?>
+    </div>
+  </div>
+
+  <!-- Galeri Thumbnail -->
+  <div class="d-flex justify-content-center gap-2 mt-3">
+    <img src="images/<?= $produk['gambar']; ?>" onclick="changeImage(this.src)" class="border" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;">
+    <img src="images/<?= $produk['gambar']; ?>" onclick="changeImage(this.src)" class="border opacity-50" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;">
+    <img src="images/<?= $produk['gambar']; ?>" onclick="changeImage(this.src)" class="border opacity-50" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;">
+  </div>
+
+  <p class="mt-2 mb-0 fw-semibold">Stock = <?= $produk['stok']; ?></p>
+</div>
+
 
     <!-- Deskripsi -->
     <div class="col-md-5">
@@ -152,6 +174,9 @@ if (!$produk) {
       if (current < 1) current = 1;
       input.value = current;
     }
+  }
+    function changeImage(src) {
+    document.getElementById('mainImage').src = src;
   }
 </script>
 
