@@ -108,7 +108,7 @@ if (!$produk) {
    <div class="col-md-4 text-center">
   <div class="position-relative border rounded p-2" style="border-color: #00aaff; border-width: 2px;">
     <!-- Gambar Utama -->
-    <img src="images/<?= $produk['gambar']; ?>" alt="<?= $produk['nama_produk']; ?>" class="img-fluid mb-2" id="mainImage">
+    <img src="images/produk/<?= $produk['gambar']; ?>" alt="<?= $produk['nama_produk']; ?>" class="img-fluid mb-2" id="mainImage">
 
     <!-- Badge 1KG -->
     <div class="position-absolute top-50 end-0 translate-middle-y bg-light text-primary fw-bold px-2 py-1" style="writing-mode: vertical-rl; transform: rotate(180deg); border-radius: 0 5px 5px 0;">
@@ -123,9 +123,9 @@ if (!$produk) {
 
   <!-- Galeri Thumbnail -->
   <div class="d-flex justify-content-center gap-2 mt-3">
-    <img src="images/<?= $produk['gambar']; ?>" onclick="changeImage(this.src)" class="border" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;">
-    <img src="images/<?= $produk['gambar']; ?>" onclick="changeImage(this.src)" class="border opacity-50" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;">
-    <img src="images/<?= $produk['gambar']; ?>" onclick="changeImage(this.src)" class="border opacity-50" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;">
+    <img src="images/produk/<?= $produk['gambar']; ?>" onclick="changeImage(this.src)" class="border" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;">
+    <img src="images/produk/<?= $produk['gambar']; ?>" onclick="changeImage(this.src)" class="border opacity-50" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;">
+    <img src="images/produk/<?= $produk['gambar']; ?>" onclick="changeImage(this.src)" class="border opacity-50" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;">
   </div>
 
   <p class="mt-2 mb-0 fw-semibold">Stock = <?= $produk['stok']; ?></p>
