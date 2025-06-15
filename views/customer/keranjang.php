@@ -32,7 +32,7 @@ function getProduct($conn, $id) {
 }
 
 // === 3. VARIABEL DISKON ===
-$discountCode = 'suppli2024';
+$discountCode = 'Suppli2024';
 $discountAmount = 22000;
 $cart = $_SESSION['cart'] ?? [];
 $subtotal = 0;

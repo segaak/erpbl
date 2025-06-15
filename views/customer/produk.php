@@ -15,15 +15,35 @@ session_start();
     body {
       background-color: #f6f7fb;
     }
+.hero {
+  background-image: url('images/herobg.png');
+  background-size: cover;
+  background-position: center top;
+  color: #fff;
+  padding: 80px 0;
+  text-align: left;
+}
 
-    .hero {
-      background-image: url('img/hero-banner.jpg');
-      background-size: cover;
-      background-position: center;
-      color: white;
-      padding: 60px 0;
-      text-align: center;
-    }
+.hero h2 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.hero p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  max-width: 500px;
+  margin: 20px 0;
+}
+
+.btn.btn-light {
+  background-color: white;
+  color: #007bff;
+  font-weight: 600;
+}
 
     .search-bar {
       background: white;
