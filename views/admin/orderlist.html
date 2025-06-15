@@ -1,37 +1,28 @@
 {{ define "order" }}
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/static/style.css">
 	<title>Product Page</title>
-	
+	<style>
+		.order-table select.unique-status {
+			padding: 4px;
+			border-radius: 4px;
+			border: 1px solid #ccc;
+			background-color: #f9f9f9;
+			font-weight: bold;
+		}
+	</style>
 </head>
-
 <body>
-
-
-	<!-- SIDEBAR -->
-
 	{{ template "sidebar" . }}
-
-
-	<!-- SIDEBAR -->
-
-
-
-	<!-- CONTENT -->
 	<section id="content">
-		<!-- NAVBAR -->
 		{{ template "navbar" . }}
-
-		<!-- NAVBAR -->
-
-		<!-- MAIN -->
 		<main>
-			 <h2>Order Lists</h2>
+			<h2>Order Lists</h2>
+			
 			<div class="table-container">
 				<table class="order-table">
 					<thead>
@@ -45,43 +36,42 @@
 						</tr>
 					</thead>
 					<tbody>
+						{{ range .Orders }}
 						<tr>
-							<td>00001</td>
-							<td>Christine Brooks</td>
-							<td>089 Kutch Green Apt. 448</td>
-							<td>04 Sep 2019</td>
-							<td>08674322332</td>
-							<td><span class="status completed">Completed</span></td>
+							<td>{{ printf "%05d" .ID }}</td>
+							<td>{{ .Nama }}</td>
+							<td>{{ .Alamat }}</td>
+							<td>{{ .Tanggal }}</td>
+							<td>{{ .Kontak }}</td>
+							<td>
+								<form action="/update-status" method="POST">
+									<input type="hidden" name="id" value="{{ .ID }}">
+									<select name="status" class="unique-status" onchange="this.form.submit()">
+										<option value="Menunggu" {{if eq .Status "Menunggu"}}selected{{end}}>Menunggu</option>
+										<option value="Selesai" {{if eq .Status "Selesai"}}selected{{end}}>Selesai</option>
+										<option value="Ditolak" {{if eq .Status "Ditolak"}}selected{{end}}>Ditolak</option>
+									</select>
+								</form>
+							</td>
 						</tr>
 						<tr>
-							<td>00002</td>
-							<td>Rosie Pearson</td>
-							<td>979 Immanuel Ferry Suite 526</td>
-							<td>28 May 2019</td>
-							<td>08312831231</td>
-							<td><span class="status processing">Processing</span></td>
+							<td colspan="6">
+								<details>
+									<summary>Lihat Produk</summary>
+									<ul>
+										{{ range .Produk }}
+											<li>{{ .NamaProduk }} - {{ .Jumlah }} x {{ .Harga }} = {{ .Subtotal }}</li>
+										{{ end }}
+									</ul>
+								</details>
+							</td>
 						</tr>
-						<tr>
-							<td>00003</td>
-							<td>Darrell Caldwell</td>
-							<td>8587 Frida Ports</td>
-							<td>23 Nov 2019</td>
-							<td>08312831321</td>
-							<td><span class="status rejected">Rejected</span></td>
-						</tr>
-						<!-- Tambahkan baris lainnya sesuai kebutuhan -->
+						{{ end }}
 					</tbody>
 				</table>
 			</div>
 		</main>
-
-		<!-- MAIN -->
 	</section>
-	<!-- CONTENT -->
-
-	
-
 </body>
-
 </html>
 {{ end }}
