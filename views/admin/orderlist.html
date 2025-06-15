@@ -1,28 +1,21 @@
 {{ define "order" }}
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/static/style.css">
-	<title>Product Page</title>
-	<style>
-		.order-table select.unique-status {
-			padding: 4px;
-			border-radius: 4px;
-			border: 1px solid #ccc;
-			background-color: #f9f9f9;
-			font-weight: bold;
-		}
-	</style>
+	<title>Order Page</title>
 </head>
+
 <body>
 	{{ template "sidebar" . }}
 	<section id="content">
 		{{ template "navbar" . }}
 		<main>
-			<h2>Order Lists</h2>
-			
+			<h2 class="text-2xl font-bold p-4">Order Lists</h2>
+
 			<div class="table-container">
 				<table class="order-table">
 					<thead>
@@ -31,13 +24,13 @@
 							<th>NAME</th>
 							<th>ADDRESS</th>
 							<th>DATE</th>
-							<th>Kontak</th>
+							<th>KONTAK</th>
 							<th>STATUS</th>
 						</tr>
 					</thead>
 					<tbody>
 						{{ range .Orders }}
-						<tr>
+						<tr class="order-row">
 							<td>{{ printf "%05d" .ID }}</td>
 							<td>{{ .Nama }}</td>
 							<td>{{ .Alamat }}</td>
@@ -54,24 +47,59 @@
 								</form>
 							</td>
 						</tr>
-						<tr>
-							<td colspan="6">
+						<tr class="product-dropdown">
+							<td colspan="6" style="padding: 0;">
 								<details>
-									<summary>Lihat Produk</summary>
-									<ul>
-										{{ range .Produk }}
-											<li>{{ .NamaProduk }} - {{ .Jumlah }} x {{ .Harga }} = {{ .Subtotal }}</li>
-										{{ end }}
-									</ul>
+									<summary style="padding: 10px; cursor: pointer; background: #f9f9f9;">Lihat Produk</summary>
+									<table class="inner-product-table">
+										<thead>
+											<tr>
+												<th>ID PRODUCT</th>
+												<th>PRODUCT</th>
+												<th>HARGA</th>
+												<th>JUMLAH</th>
+												<th>TOTAL</th>
+											</tr>
+										</thead>
+										<tbody>
+											{{ range .Produk }}
+											<tr>
+												<td>{{ .IDProduk }}</td>
+												<td>{{ .NamaProduk }}</td>
+												<td>Rp {{ .Harga }}</td>
+												<td>{{ .Jumlah }}</td>
+												<td>Rp {{ .Subtotal }}</td>
+											</tr>
+											{{ end }}
+										</tbody>
+									</table>
 								</details>
 							</td>
 						</tr>
 						{{ end }}
 					</tbody>
 				</table>
+				<p class="text-sm text-gray-500 mt-2">Showing 1-09 of 78</p>
 			</div>
 		</main>
+		<script>
+	document.querySelectorAll(".toggle-btn").forEach(button => {
+		button.addEventListener("click", () => {
+			const targetId = button.getAttribute("data-target");
+			const dropdownRow = document.getElementById(targetId);
+
+			if (dropdownRow.style.display === "none" || dropdownRow.style.display === "") {
+				dropdownRow.style.display = "table-row";
+				button.textContent = "▲";
+			} else {
+				dropdownRow.style.display = "none";
+				button.textContent = "▼";
+			}
+		});
+	});
+</script>
 	</section>
 </body>
+
 </html>
 {{ end }}
