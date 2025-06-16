@@ -15,7 +15,6 @@
 		{{ template "navbar" . }}
 		<main>
 			<h2 class="text-2xl font-bold p-4">Order Lists</h2>
-
 			<div class="table-container">
 				<table class="order-table">
 					<thead>
@@ -26,78 +25,75 @@
 							<th>DATE</th>
 							<th>KONTAK</th>
 							<th>STATUS</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 						{{ range .Orders }}
-						<tr class="order-row">
+						<tr>
 							<td>{{ printf "%05d" .ID }}</td>
 							<td>{{ .Nama }}</td>
 							<td>{{ .Alamat }}</td>
 							<td>{{ .Tanggal }}</td>
 							<td>{{ .Kontak }}</td>
 							<td>
-								<form action="/update-status" method="POST">
+								<form action="/updatestatus" method="POST" class="status-form">
 									<input type="hidden" name="id" value="{{ .ID }}">
-									<select name="status" class="unique-status" onchange="this.form.submit()">
-										<option value="Menunggu" {{if eq .Status "Menunggu"}}selected{{end}}>Menunggu</option>
-										<option value="Selesai" {{if eq .Status "Selesai"}}selected{{end}}>Selesai</option>
-										<option value="Ditolak" {{if eq .Status "Ditolak"}}selected{{end}}>Ditolak</option>
+									<select name="status" class="status-select" onchange="this.form.submit()">
+										<option value="Menunggu" {{if eq .Status "Menunggu" }}selected{{end}}>Menunggu
+										</option>
+										<option value="Selesai" {{if eq .Status "Selesai" }}selected{{end}}>Selesai
+										</option>
+										<option value="Ditolak" {{if eq .Status "Ditolak" }}selected{{end}}>Ditolak
+										</option>
 									</select>
 								</form>
+
+							</td>
+							<td>
+								<button class="expand-btn" onclick="toggleDetails('{{ .ID }}')">▼</button>
 							</td>
 						</tr>
-						<tr class="product-dropdown">
-							<td colspan="6" style="padding: 0;">
-								<details>
-									<summary style="padding: 10px; cursor: pointer; background: #f9f9f9;">Lihat Produk</summary>
-									<table class="inner-product-table">
-										<thead>
-											<tr>
-												<th>ID PRODUCT</th>
-												<th>PRODUCT</th>
-												<th>HARGA</th>
-												<th>JUMLAH</th>
-												<th>TOTAL</th>
-											</tr>
-										</thead>
-										<tbody>
-											{{ range .Produk }}
-											<tr>
-												<td>{{ .IDProduk }}</td>
-												<td>{{ .NamaProduk }}</td>
-												<td>Rp {{ .Harga }}</td>
-												<td>{{ .Jumlah }}</td>
-												<td>Rp {{ .Subtotal }}</td>
-											</tr>
-											{{ end }}
-										</tbody>
-									</table>
-								</details>
+						<tr id="details-{{ .ID }}" class="product-details">
+							<td colspan="7">
+								<table class="product-table">
+									<thead>
+										<tr>
+											<th>PRODUCT</th>
+											<th>JUMLAH</th>
+											<th>HARGA</th>
+											<th>SUBTOTAL</th>
+										</tr>
+									</thead>
+									<tbody>
+										{{ range .Produk }}
+										<tr>
+											<td>{{ .NamaProduk }}</td>
+											<td>{{ .Jumlah }}</td>
+											<td>Rp {{ .Harga }}</td>
+											<td>Rp {{ .Subtotal }}</td>
+										</tr>
+										{{ end }}
+									</tbody>
+								</table>
 							</td>
 						</tr>
 						{{ end }}
 					</tbody>
 				</table>
-				<p class="text-sm text-gray-500 mt-2">Showing 1-09 of 78</p>
+				<!-- <p class="text-sm text-gray-500 mt-2">Showing 1-09 of 78</p> -->
 			</div>
 		</main>
 		<script>
-	document.querySelectorAll(".toggle-btn").forEach(button => {
-		button.addEventListener("click", () => {
-			const targetId = button.getAttribute("data-target");
-			const dropdownRow = document.getElementById(targetId);
-
-			if (dropdownRow.style.display === "none" || dropdownRow.style.display === "") {
-				dropdownRow.style.display = "table-row";
-				button.textContent = "▲";
-			} else {
-				dropdownRow.style.display = "none";
-				button.textContent = "▼";
+			function toggleDetails(id) {
+				const row = document.getElementById("details-" + id);
+				if (row.style.display === "none" || row.style.display === "") {
+					row.style.display = "table-row";
+				} else {
+					row.style.display = "none";
+				}
 			}
-		});
-	});
-</script>
+		</script>
 	</section>
 </body>
 

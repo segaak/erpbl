@@ -23,25 +23,22 @@ type ProdukOrder struct {
 	Subtotal   int
 }
 
-func OrderHandler(db *sql.DB) func(http.ResponseWriter, *http.Request) {
+func OrderHandler(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+
 		rows, err := db.Query(`
 			SELECT 
-	u.id, 
-	u.nama, 
-	u.alamat, 
-	pm.tanggal, 
-	u.no_hp, 
-	ps.status, 
-	pr.nama_produk, 
-	ps.jumlah, 
-	ps.harga_satuan, 
-	ps.subtotal
-FROM users u
-JOIN pembayaran pm ON u.id = pm.id
-JOIN pesanan ps ON pm.id = ps.id_pembayaran
-JOIN produk pr ON ps.ID_produk = pr.ID_Produk
-ORDER BY u.id;
+				u.id, u.nama, u.alamat, pm.tanggal, u.no_hp, ps.status,
+				pr.nama_produk, ps.jumlah, ps.harga_satuan, ps.subtotal
+			FROM users u
+			JOIN pembayaran pm ON u.id = pm.id
+			JOIN pesanan ps ON pm.id = ps.id_pembayaran
+			JOIN produk pr ON ps.ID_produk = pr.ID_Produk
+			ORDER BY u.id;
 		`)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)

@@ -7,13 +7,15 @@ import (
 )
 
 type Produk struct {
-	IDProduk   int
-	NamaProduk string
-	Harga      int
-	Kategori   string
-	Stok       int
-	Deskripsi  string
-	Gambar     string
+	IDProduk    int
+	NamaProduk  string
+	Harga       int
+	Kategori    string
+	Stok        int
+	Deskripsi   string
+	Gambar      string
+	Satuan      string
+	HargaDiskon int
 }
 
 func ProductHandler(db *sql.DB) func(http.ResponseWriter, *http.Request) {
@@ -29,7 +31,7 @@ func ProductHandler(db *sql.DB) func(http.ResponseWriter, *http.Request) {
 		}
 
 		// Query produk dari database
-		rows, err := db.Query("SELECT ID_Produk, nama_produk, harga, kategori, stok, deskripsi, gambar FROM produk")
+		rows, err := db.Query("SELECT ID_Produk, nama_produk, harga, kategori, stok, deskripsi,  gambar,  IFNULL(satuan, '') as satuan, IFNULL(harga_diskon, 0) as harga_diskon FROM produk")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -39,7 +41,7 @@ func ProductHandler(db *sql.DB) func(http.ResponseWriter, *http.Request) {
 		var products []Produk
 		for rows.Next() {
 			var p Produk
-			err := rows.Scan(&p.IDProduk, &p.NamaProduk, &p.Harga, &p.Kategori, &p.Stok, &p.Deskripsi, &p.Gambar)
+			err := rows.Scan(&p.IDProduk, &p.NamaProduk, &p.Harga, &p.Kategori, &p.Stok, &p.Deskripsi, &p.Gambar, &p.Satuan, &p.HargaDiskon)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return

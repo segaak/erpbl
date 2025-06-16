@@ -25,6 +25,8 @@ func TambahProductHandler(db *sql.DB) func(http.ResponseWriter, *http.Request) {
 			kategori := r.FormValue("kategori")
 			stokStr := r.FormValue("stok")
 			deskripsi := r.FormValue("deskripsi")
+			satuan := r.FormValue("satuan")
+			hargaDiskonStr := r.FormValue("harga_diskon")
 
 			// Konversi harga dan stok ke int
 			harga, err := strconv.Atoi(hargaStr)
@@ -66,9 +68,9 @@ func TambahProductHandler(db *sql.DB) func(http.ResponseWriter, *http.Request) {
 
 			// Insert ke database
 			_, err = db.Exec(`
-				INSERT INTO produk (nama_produk, harga, kategori, Stok, deskripsi, gambar)
-				VALUES (?, ?, ?, ?, ?, ?)`,
-				namaProduk, harga, kategori, stok, deskripsi, handler.Filename,
+				INSERT INTO produk (nama_produk, harga, kategori, Stok, deskripsi, gambar, satuan, harga_diskon)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+				namaProduk, harga, kategori, stok, deskripsi, handler.Filename, satuan, hargaDiskonStr,
 			)
 			if err != nil {
 				log.Println("INSERT ERROR:", err)

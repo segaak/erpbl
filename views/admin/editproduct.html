@@ -57,8 +57,7 @@
 			</div> -->
             <div class="edit-product-container">
                 <h2 class="edit-product-title">Edit Products</h2>
-                <form class="edit-product-form" action="/admin/editproduct" method="POST"
-                    enctype="multipart/form-data">
+                <form class="edit-product-form" action="/admin/editproduct" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="{{.Product.ID_Produk}}">
 
                     <div class="edit-product-field">
@@ -84,6 +83,16 @@
                     <div class="edit-product-field">
                         <label for="deskripsi">Deskripsi</label>
                         <textarea id="deskripsi" name="deskripsi">{{.Product.Deskripsi}}</textarea>
+                    </div>
+
+                    <div class="edit-product-field">
+                        <label for="satuan">Satuan</label>
+                        <input type="text" id="satuan" name="satuan" value="{{.Product.Satuan}}">
+                    </div>
+
+                    <div class="edit-product-field">
+                        <label for="harga_diskon">Harga Diskon</label>
+                        <textarea id="harga_diskon" name="harga_diskon">{{.Product.Harga_Diskon}}</textarea>
                     </div>
 
                     <div class="edit-product-field">

@@ -15,7 +15,7 @@ func UpdateStatusHandler(db *sql.DB) http.HandlerFunc {
 		id := r.FormValue("id")
 		status := r.FormValue("status")
 
-		_, err := db.Exec("UPDATE detail_pembelian SET status = ? WHERE id_pembayaran = ?", status, id)
+		_, err := db.Exec("UPDATE pesanan SET status = ? WHERE id_pembayaran = ?", status, id)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
