@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2025 at 09:11 AM
+-- Generation Time: Jun 16, 2025 at 04:25 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -213,7 +213,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `nama`, `email`, `alamat`, `no_hp`, `roles`) VALUES
 (2, 'a', '$2y$10$3W4h/J1Ljqan4if2IYuQkeWvQAoHUjbwXwWK6D3HZhziqhyEXLzGK', 'a', 'a@a.com', 'a', 'a', 'customer'),
-(4, 'b', '$2y$10$.t3TEsK7ZxwXYaZ4skpnUO8dvfXm1ITlQy3qJJ9ZKUqYfMhjHDSDu', 'b', 'b@gmail.com', 'b', 'b', 'admin');
+(4, 'b', '$2y$10$.t3TEsK7ZxwXYaZ4skpnUO8dvfXm1ITlQy3qJJ9ZKUqYfMhjHDSDu', 'b', 'b@gmail.com', 'b', 'b', 'admin'),
+(5, 'c', '$2y$10$8D6z6QW1zvUAfKQosA0lfOH2cBdncCw0h2v8Uq0tBi/29jvQSeW2W', 'c', 'c@c.gmail.com', 'c', '08135444423', 'owner');
 
 --
 -- Indexes for dumped tables
@@ -298,7 +299,7 @@ ALTER TABLE `stok_produk`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
