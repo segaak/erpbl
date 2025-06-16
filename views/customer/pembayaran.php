@@ -144,31 +144,53 @@ $totalTagihan = 0;
 
     <!-- Kanan -->
     <div class="col-md-5">
-      <form action="qr_payment.php" method="POST">
-        <div class="section-box">
-          <h6>Metode Pembayaran <a href="#" class="float-end text-sm">Lihat Semua</a></h6>
+      
+       
+       <!-- FORM PEMBAYARAN -->
+<form id="formBayar" method="POST">
+  <div class="section-box">
+    <h6>Metode Pembayaran 
+      <a href="#" class="float-end text-sm" onclick="event.preventDefault(); document.getElementById('more-methods').classList.toggle('d-none');">Lihat Semua</a>
+    </h6>
 
-          <div class="mb-3 d-flex justify-content-between align-items-start">
-            <div class="d-flex align-items-center">
-              <img src="img/bca-va.png" height="24" class="me-2">
-              <div>
-                <strong>BCA Virtual Account</strong><br>
-                <small class="text-muted">Mudah & terverifikasi otomatis</small>
-              </div>
-            </div>
-            <input class="form-check-input mt-2" type="radio" name="metode_pembayaran" value="BCA Virtual Account" checked>
-          </div>
+    <!-- Metode default -->
+    <div class="mb-3 d-flex justify-content-between align-items-start">
+      <div class="d-flex align-items-center">
+        <img src="img/bca-va.png" height="24" class="me-2">
+        <div>
+          <strong>BCA Virtual Account</strong><br>
+          <small class="text-muted">Mudah & terverifikasi otomatis</small>
+        </div>
+      </div>
+      <input id="metodeInput" class="form-check-input mt-2" type="radio" name="metode_pembayaran" value="BCA Virtual Account" checked>
+    </div>
 
-          <div class="mb-3 d-flex justify-content-between align-items-start">
-            <div class="d-flex align-items-center">
-              <img src="img/alfamart.png" height="24" class="me-2">
-              <div>
-                <strong>Alfamart / Lawson / Dan+Dan</strong><br>
-                <small class="text-muted">Bayar di kasir di seluruh minimarket</small>
-              </div>
-            </div>
-            <input class="form-check-input mt-2" type="radio" name="metode_pembayaran" value="Alfamart">
+    <!-- Metode tambahan -->
+    <div id="more-methods" class="d-none">
+      <div class="mb-3 d-flex justify-content-between align-items-start">
+        <div class="d-flex align-items-center">
+          <img src="img/gopay.png" height="24" class="me-2">
+          <div>
+            <strong>GoPay</strong><br>
+            <small class="text-muted">Pembayaran cepat lewat QR</small>
           </div>
+        </div>
+        <input class="form-check-input mt-2" type="radio" name="metode_pembayaran" value="GoPay">
+      </div>
+      <div class="mb-3 d-flex justify-content-between align-items-start">
+        <div class="d-flex align-items-center">
+          <img src="img/shopeepay.png" height="24" class="me-2">
+          <div>
+            <strong>ShopeePay</strong><br>
+            <small class="text-muted">Dompet digital Shopee</small>
+          </div>
+        </div>
+        <input class="form-check-input mt-2" type="radio" name="metode_pembayaran" value="ShopeePay">
+      </div>
+    </div>
+
+  
+
 
           <hr>
 
@@ -210,10 +232,23 @@ $totalTagihan = 0;
     </div>
   </div>
 </div>
-
+<script>
+document.getElementById("formBayar").addEventListener("submit", function(e) {
+  const metode = document.querySelector('input[name="metode_pembayaran"]:checked').value.toLowerCase();
+  if (metode.includes("bca")) {
+    this.action = "kode_pembayaran.php";
+  } else if (metode.includes("gopay") || metode.includes("shopee")) {
+    this.action = "qr_payment.php";
+  } else {
+    // fallback default
+    this.action = "qr_payment.php";
+  }
+});
+</script>
 <footer class="text-center text-white bg-primary py-2 mt-4">
   © SI-SUPLY 2024
 </footer>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

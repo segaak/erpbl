@@ -6,22 +6,50 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['total_bayar']) || em
     exit;
 }
 
-$_SESSION['metode_pembayaran'] = $_POST['metode_pembayaran'] ?? 'QRIS';
+$_SESSION['metode_pembayaran'] = $_POST['metode_pembayaran'] ?? 'BNI';
 $_SESSION['total_bayar'] = (int)$_POST['total_bayar'];
+
+// Simulasi nomor VA dan batas waktu
+$virtual_account = '0217 082 1192 8543 6';
+$deadline = date('d F Y, H.i', strtotime('+1 day'));
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Pembayaran via QR Code</title>
+  <title>Instruksi Pembayaran</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      background-color: #f9f9f9;
+     background-color: #f9f9f9;
       padding: 30px;
+      font-family: 'Segoe UI', sans-serif;
     }
-    .qr-container {
+    .payment-box {
+      max-width: 600px;
+      margin: auto;
+    background: white
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 40px 30px;
+      text-align: center;
+    }
+    .va-number {
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-top: 15px;
+    }
+    .bank-logo {
+      margin: 10px 0;
+    }
+    .expiry {
+      margin-top: 20px;
+      color: #666;
+      font-size: 14px;
+    }
+     .qr-container {
       max-width: 500px;
       margin: auto;
       background: white;
@@ -29,12 +57,6 @@ $_SESSION['total_bayar'] = (int)$_POST['total_bayar'];
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       padding: 20px;
       text-align: center;
-    }
-    .qr-image {
-      max-width: 300px;
-      width: 100%;
-      height: auto;
-      margin: 20px auto;
     }
     .instruction-box {
       background-color: #fff8dc;
@@ -59,17 +81,23 @@ $_SESSION['total_bayar'] = (int)$_POST['total_bayar'];
   </style>
 </head>
 <body>
-  <div class="qr-container">
-    <h4>Scan untuk Membayar</h4>
-    <p class="text-muted">Gunakan aplikasi <strong><?= htmlspecialchars($_SESSION['metode_pembayaran']) ?></strong></p>
-    <img src="images/qr_sample.jpeg" alt="QR Code" class="qr-image">
-    <h5 class="mt-4">Total: <strong>Rp<?= number_format($_SESSION['total_bayar'], 0, ',', '.') ?></strong></h5>
+  <div class="payment-box">
+    <p class="mb-1 text-muted">Payment Total:</p>
+    <h2 class="fw-bold text-dark">Rp<?= number_format($_SESSION['total_bayar'], 0, ',', '.') ?></h2>
 
-    <form action="bayar.php" method="post">
+    <div class="bank-logo">
+      <img src="images/bni_logo.png" alt="BNI" height="24">
+    </div>
+
+    <p class="text-muted mt-3">Virtual Account Number</p>
+    <div class="va-number"><?= $virtual_account ?></div>
+    <p class="text-muted small mt-1">Only accept from Bank BNI</p>
+
+    <p class="expiry">Valid until : <?= $deadline ?></p>
+       <form action="bayar.php" method="post">
       <button type="submit" class="btn btn-success mt-3">Pay Now</button>
     </form>
   </div>
-
   <br>
   <div class="qr-container">
     <h6>Instruksi Pembayaran</h6>
