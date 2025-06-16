@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2025 at 10:02 AM
+-- Generation Time: Jun 16, 2025 at 09:11 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -71,7 +71,22 @@ CREATE TABLE `pembayaran` (
 INSERT INTO `pembayaran` (`id`, `metode`, `total`, `tanggal`) VALUES
 (1, 'BCA Virtual Account', 184000, '2025-06-13 09:30:26'),
 (2, 'BCA Virtual Account', 114000, '2025-06-13 09:33:49'),
-(3, 'BCA Virtual Account', 131000, '2025-06-13 09:36:01');
+(3, 'BCA Virtual Account', 131000, '2025-06-13 09:36:01'),
+(4, 'BCA Virtual Account', 122000, '2025-06-13 11:06:39'),
+(5, 'Alfamart', 136000, '2025-06-13 18:13:22'),
+(6, 'BCA Virtual Account', 988000, '2025-06-13 22:07:01'),
+(7, 'Alfamart', 72500, '2025-06-15 13:38:11'),
+(8, 'BCA Virtual Account', 62000, '2025-06-15 13:39:38'),
+(9, 'BCA Virtual Account', 72000, '2025-06-15 13:40:32'),
+(10, 'BCA Virtual Account', 72000, '2025-06-15 13:43:26'),
+(11, 'BCA Virtual Account', 72000, '2025-06-15 18:02:19'),
+(12, 'ShopeePay', 201000, '2025-06-15 18:14:00'),
+(13, 'BCA Virtual Account', 201000, '2025-06-15 18:14:12'),
+(14, 'BCA Virtual Account', 201000, '2025-06-15 18:14:28'),
+(15, 'GoPay', 201000, '2025-06-15 18:14:39'),
+(16, 'BCA Virtual Account', 82000, '2025-06-15 18:30:53'),
+(17, 'BCA Virtual Account', 175000, '2025-06-15 19:03:36'),
+(18, 'BCA Virtual Account', 67000, '2025-06-16 05:29:21');
 
 -- --------------------------------------------------------
 
@@ -97,7 +112,28 @@ INSERT INTO `pesanan` (`id`, `id_pembayaran`, `id_produk`, `jumlah`, `harga_satu
 (1, 1, 1, 6, 17000, 102000, 'Menunggu'),
 (2, 1, 2, 1, 27000, 27000, 'Menunggu'),
 (3, 2, 2, 3, 27000, 81000, 'Menunggu'),
-(4, 3, 9, 4, 19000, 76000, 'Menunggu');
+(4, 3, 9, 4, 19000, 76000, 'Menunggu'),
+(5, 4, 3, 4, 17000, 68000, 'Menunggu'),
+(6, 4, 11, 6, 3500, 21000, 'Menunggu'),
+(7, 5, 3, 1, 17000, 17000, 'Menunggu'),
+(8, 5, 11, 4, 3500, 14000, 'Menunggu'),
+(9, 5, 12, 6, 12000, 72000, 'Menunggu'),
+(10, 6, 2, 1, 27000, 27000, 'Menunggu'),
+(11, 6, 12, 6, 12000, 72000, 'Menunggu'),
+(12, 6, 10, 5, 14000, 70000, 'Menunggu'),
+(13, 6, 13, 9, 6000, 54000, 'Menunggu'),
+(14, 6, 11, 10, 3500, 35000, 'Menunggu'),
+(15, 6, 1, 1, 17000, 17000, 'Menunggu'),
+(16, 6, 8, 9, 60000, 540000, 'Menunggu'),
+(17, 6, 7, 5, 28000, 140000, 'Menunggu'),
+(18, 7, 14, 5, 3500, 17500, 'Menunggu'),
+(19, 8, 14, 2, 3500, 7000, 'Menunggu'),
+(20, 9, 3, 1, 17000, 17000, 'Menunggu'),
+(21, 10, 5, 1, 17000, 17000, 'Menunggu'),
+(22, 11, 5, 1, 17000, 17000, 'Menunggu'),
+(23, 16, 2, 1, 27000, 27000, 'Menunggu'),
+(24, 17, 15, 15, 8000, 120000, 'Menunggu'),
+(25, 18, 17, 1, 12000, 12000, 'Menunggu');
 
 -- --------------------------------------------------------
 
@@ -113,27 +149,32 @@ CREATE TABLE `produk` (
   `Stok` int(50) NOT NULL,
   `deskripsi` varchar(50) NOT NULL,
   `gambar` varchar(50) NOT NULL,
-  `satuan` varchar(50) DEFAULT NULL
+  `satuan` varchar(50) DEFAULT NULL,
+  `harga_diskon` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `produk`
 --
 
-INSERT INTO `produk` (`ID_Produk`, `nama_produk`, `harga`, `kategori`, `Stok`, `deskripsi`, `gambar`, `satuan`) VALUES
-(1, 'Gulaku', 17000, 'gula', 5, 'gula tebu alami', 'gulaku.jpeg', 'kg'),
-(2, 'Tepung', 27000, 'Tepung', 5, 'Tepung serbaguna ', 'tepung.jpeg', 'kg'),
-(3, 'Gulaku', 17000, 'gula', 5, 'gula tebu alami', 'gulaku.jpeg', 'kg'),
-(4, 'Gulaku', 17000, 'gula', 5, 'gula tebu alami', 'gulaku.jpeg', 'kg'),
-(5, 'Gulaku', 17000, 'gula', 5, 'gula tebu alami', 'gulaku.jpeg', NULL),
-(6, 'Minyak Goreng Bimoli 1L', 16000, 'minyak', 12, 'Minyak goreng sehat', 'bimoli.jpeg', 'Liter'),
-(7, 'Telur Ayam 1kg', 28000, 'telur', 8, 'Telur ayam segar', 'telur.jpeg', 'kg'),
-(8, 'Beras Ramos 5kg', 60000, 'beras', 20, 'Beras pulen dan harum', 'beras.jpeg', 'Kg'),
-(9, 'Kecap Manis ABC 600ml', 19000, 'kecap', 10, 'Kecap manis berkualitas', 'abc.jpeg', 'ml'),
-(10, 'Susu UHT Indomilk 1L', 14000, 'susu', 25, 'Susu segar UHT rasa vanilla', 'indomilk.jpeg', 'Liter'),
-(11, 'Sabun Lifebuoy 85gr', 3500, 'sabun', 30, 'Sabun mandi antibakteri', 'lifebuoy.jpeg', 'Gram'),
-(12, 'Sarden ABC 425gr', 12000, 'makanan kaleng', 18, 'Sarden siap saji berkualitas', 'sarden.jpeg', 'gram'),
-(13, 'Air Mineral Aqua 1.5L', 6000, 'minuman', 40, 'Air mineral murni', 'aqua.jpeg', 'Liter');
+INSERT INTO `produk` (`ID_Produk`, `nama_produk`, `harga`, `kategori`, `Stok`, `deskripsi`, `gambar`, `satuan`, `harga_diskon`) VALUES
+(1, 'Gulaku', 17000, 'gula', 5, 'gula tebu alami', 'gulaku.jpeg', 'kg', 16000),
+(2, 'Tepung', 27000, 'Tepung', 5, 'Tepung serbaguna ', 'tepung.jpeg', 'kg', 25000),
+(3, 'Gulaku', 17000, 'gula', 5, 'gula tebu alami', 'gulaku.jpeg', 'kg', NULL),
+(4, 'Gulaku', 17000, 'gula', 5, 'gula tebu alami', 'gulaku.jpeg', 'kg', NULL),
+(5, 'Gulaku', 17000, 'gula', 5, 'gula tebu alami', 'gulaku.jpeg', NULL, NULL),
+(6, 'Minyak Goreng Bimoli 1L', 16000, 'minyak', 12, 'Minyak goreng sehat', 'bimoli.jpeg', 'Liter', NULL),
+(7, 'Telur Ayam 1kg', 28000, 'telur', 8, 'Telur ayam segar', 'telur.jpeg', 'kg', NULL),
+(8, 'Beras Ramos 5kg', 60000, 'beras', 20, 'Beras pulen dan harum', 'beras.jpeg', 'Kg', NULL),
+(9, 'Kecap Manis ABC 600ml', 19000, 'kecap', 10, 'Kecap manis berkualitas', 'abc.jpeg', 'ml', NULL),
+(10, 'Susu UHT Indomilk 1L', 14000, 'susu', 25, 'Susu segar UHT rasa vanilla', 'indomilk.jpeg', 'Liter', 11000),
+(11, 'Sabun Lifebuoy 85gr', 3500, 'sabun', 30, 'Sabun mandi antibakteri', 'lifebuoy.jpeg', 'Gram', NULL),
+(12, 'Sarden ABC 425gr', 12000, 'makanan kaleng', 18, 'Sarden siap saji berkualitas', 'sarden.jpeg', 'gram', NULL),
+(13, 'Air Mineral Aqua 1.5L', 6000, 'minuman', 40, 'Air mineral murni', 'aqua.jpeg', 'Liter', NULL),
+(14, 'Indomie Ayam Bawang', 3500, 'mie', 50, 'Mi instan rasa ayam bawang', 'indomie ayam bawang.jpg', 'pcs', NULL),
+(15, 'Pepsodent Pasta Gigi 75g', 8000, 'pasta gigi', 40, 'Pasta gigi untuk perlindungan gigi', 'Pepsodent.jpeg', 'pcs', NULL),
+(16, 'Susu Bubuk Full Cream', 25000, 'susu', 20, 'Susu bubuk tinggi kalsium', 'susu.jpg', 'gram', NULL),
+(17, 'Tisu Serbaguna 200 Lbr', 12000, 'tisu', 35, 'Tisu serbaguna lembut dan kuat', 'tisu.jpg', 'pcs', NULL);
 
 -- --------------------------------------------------------
 
@@ -233,19 +274,19 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `ID_Produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID_Produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `stok_produk`
