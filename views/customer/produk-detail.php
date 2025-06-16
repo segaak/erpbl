@@ -139,7 +139,7 @@ if (!$produk) {
 
       <div class="mb-2">
         <span class="discount-badge">10%</span>
-        <span class="price ms-2">Rp<?= number_format($produk['harga'- ]); ?></span>
+        <span class="price ms-2">Rp<?= number_format($produk['harga']); ?></span>
         <div class="price-original">Rp<?= number_format($produk['harga'] * 1.1); ?></div>
       </div>
 <br>

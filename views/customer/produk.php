@@ -1,6 +1,12 @@
 <?php
 include 'koneksi.php';
 session_start();
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_produk'])) {
+  $id_produk = (int)$_POST['id_produk'];
+  $_SESSION['cart'][$id_produk] = ($_SESSION['cart'][$id_produk] ?? 0) + 1;
+  header("Location: " . $_SERVER['PHP_SELF']);
+  exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -15,17 +21,18 @@ session_start();
       background-image: url('images/herobg.png');
       background-size: cover;
       background-position: center top;
-      color: #fff;
-      padding: 80px 0;
-      text-align: left;
+      color: #fff; padding: 80px 0; text-align: left;
     }
-    .hero h2 { font-size: 36px; font-weight: 700; }
-    .hero p { font-size: 18px; margin-bottom: 20px; }
     .search-bar { max-width: 500px; margin: 20px 0; background: white; padding: 8px 15px; border-radius: 10px; }
     .category-card {
       border-radius: 15px; background-color: #fff2d8; padding: 15px; text-align: center; transition: all 0.3s;
+      cursor: pointer;
     }
     .category-card:hover { transform: translateY(-5px); }
+    .active-kategori {
+      border: 2px solid #007bff;
+      background-color: #e6f0ff;
+    }
     .product-card {
       background-color: white; border-radius: 15px; padding: 15px; text-align: center;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05); height: 100%; transition: 0.3s;
@@ -56,18 +63,21 @@ session_start();
   </div>
 </section>
 
-<!-- Categories -->
+<!-- Categories (Dynamic) -->
 <section class="container my-5">
   <h5 class="mb-3">Explore Categories</h5>
   <div class="row g-3">
-    <?php for ($i = 0; $i < 5; $i++): ?>
-      <div class="col-4 col-md-2">
-        <div class="category-card">
-          <img src="img/fresh-produce.png" alt="Fresh Produce" class="img-fluid">
-          <div class="mt-2">Fresh Produce</div>
-        </div>
-      </div>
-    <?php endfor; ?>
+   <?php
+$kategori_query = mysqli_query($conn, "SELECT DISTINCT kategori FROM produk");
+while ($kat = mysqli_fetch_assoc($kategori_query)) :
+  $nama_kategori = $kat['kategori'];
+?>
+        <div class="col-4 col-md-2">
+    <div class="category-card kategori-filter" data-kategori="<?= $nama_kategori; ?>">
+      <div class="mt-2"><?= $nama_kategori; ?></div>
+    </div>
+  </div>
+<?php endwhile; ?>
   </div>
 </section>
 
@@ -79,28 +89,24 @@ session_start();
   <div class="d-flex gap-2 mb-4">
     <button class="btn btn-outline-dark btn-sm filter-btn active" data-filter="all">Popular buys</button>
     <button class="btn btn-outline-dark btn-sm filter-btn" data-filter="discount">Discounted</button>
-    <button class="btn btn-outline-dark btn-sm filter-btn" data-filter="today">Today's Deals</button>
   </div>
 
   <div class="row g-3">
     <?php
-    include 'koneksi.php';
-    $query = mysqli_query($conn, "SELECT * FROM produk");
-    while ($row = mysqli_fetch_assoc($query)) :
+    $produk_query = mysqli_query($conn, "SELECT * FROM produk");
+    while ($row = mysqli_fetch_assoc($produk_query)) :
       $harga = $row['harga'];
       $harga_diskon = $row['harga_diskon'];
-      $class = (!empty($harga_diskon) && $harga_diskon < $harga) ? 'discounted' : '';
+      $is_diskon = (!empty($harga_diskon) && $harga_diskon < $harga);
     ?>
-    <div class="col-6 col-md-4 col-lg-2 produk-item <?= $class ?>">
+    <div class="col-6 col-md-4 col-lg-2 produk-item <?= $is_diskon ? 'discounted' : ''; ?>" data-kategori="<?= $row['kategori']; ?>">
       <a href="produk-detail.php?id=<?= $row['ID_Produk']; ?>" style="text-decoration: none; color: inherit;">
         <div class="card h-100 shadow-sm border-0">
           <img src="images/produk/<?= $row['gambar']; ?>" class="card-img-top p-3" alt="<?= $row['nama_produk']; ?>" style="height: 140px; object-fit: contain;">
           <div class="card-body p-2 d-flex flex-column" style="min-height: 150px;">
             <p class="text-uppercase text-muted small mb-1"><?= $row['kategori']; ?></p>
-            <h6 class="card-title mb-2" style="font-size: 0.95rem;">
-              <?= $row['nama_produk']; ?>
-            </h6>
-            <?php if (!empty($harga_diskon) && $harga_diskon < $harga): ?>
+            <h6 class="card-title mb-2" style="font-size: 0.95rem;"><?= $row['nama_produk']; ?></h6>
+            <?php if ($is_diskon): ?>
               <div class="d-flex align-items-center justify-content-between mt-1">
                 <div>
                   <div class="text-danger text-decoration-line-through small">Rp<?= number_format($harga, 0, ',', '.'); ?></div>
@@ -132,6 +138,7 @@ session_start();
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+  // Filter Button (Popular, Discounted)
   const buttons = document.querySelectorAll('.filter-btn');
   const items = document.querySelectorAll('.produk-item');
 
@@ -139,19 +146,38 @@ session_start();
     btn.addEventListener('click', () => {
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
       const filter = btn.getAttribute('data-filter');
       items.forEach(item => {
+        const isDiscounted = item.classList.contains('discounted');
         if (filter === 'all') {
           item.style.display = 'block';
         } else if (filter === 'discount') {
-          item.style.display = item.classList.contains('discounted') ? 'block' : 'none';
-        } else if (filter === 'today') {
-          item.style.display = 'none'; // ganti jika punya kriteria produk hari ini
+          item.style.display = isDiscounted ? 'block' : 'none';
         }
       });
+
+      // Reset kategori
+      document.querySelectorAll('.kategori-filter').forEach(k => k.classList.remove('active-kategori'));
+    });
+  });
+
+  // Filter by Kategori
+  document.querySelectorAll('.kategori-filter').forEach(card => {
+    card.addEventListener('click', function () {
+      const kategori = this.getAttribute('data-kategori');
+      items.forEach(item => {
+        const itemKategori = item.getAttribute('data-kategori');
+        item.style.display = (itemKategori === kategori) ? 'block' : 'none';
+      });
+
+      document.querySelectorAll('.kategori-filter').forEach(c => c.classList.remove('active-kategori'));
+      this.classList.add('active-kategori');
+
+      // Reset filter button
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     });
   });
 </script>
+
 </body>
 </html>
