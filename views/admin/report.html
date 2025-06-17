@@ -4,34 +4,28 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Laporan</title>
+  <title>Transaction Report</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
-
-  <!-- SIDEBAR -->
   {{ template "sidebar" . }}
-  <!-- SIDEBAR -->
-
   <section id="content">
-    <!-- NAVBAR -->
     {{ template "navbar" . }}
-    <!-- NAVBAR -->
 
-    <!-- MAIN -->
-    <main class="report-wrapper">
-      <h2 class="report-title">Report</h2>
+    <main class="report-container">
+      <h2 class="report-heading">Transaction Report</h2>
 
       <div class="report-header">
-        <div class="report-from">
-          <p><strong>Report From:</strong></p>
-          <p>Virginia Walker</p>
-        </div>
-        <div class="report-date">
-          <p><strong>Date:</strong></p>
-          <p>20 March 2025</p>
+        <div class="report-meta">
+          <label for="dateSelect" class="report-date-label">Filter by Date:</label>
+          <select id="dateSelect" class="report-date-select" onchange="filterByDate()">
+            <option value="">Select date</option>
+            {{ range .Dates }}
+              <option value="{{ .Tanggal }}">{{ .Tanggal }}</option>
+            {{ end }}
+          </select>
         </div>
       </div>
 
@@ -45,49 +39,65 @@
             <th>Total Cost</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Product 1</td>
-            <td>2</td>
-            <td>Rp 2.000</td>
-            <td>Rp 4.000</td>
+        <tbody id="report-body">
+          {{ range .Reports }}
+          <tr data-date="{{ .Tanggal }}">
+            <td>{{ .ID }}</td>
+            <td>{{ .Product }}</td>
+            <td>{{ .Quantity }}</td>
+            <td>Rp {{ .HargaSatuan }}</td>
+            <td>Rp {{ .Total }}</td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>Product 2</td>
-            <td>2</td>
-            <td>Rp 3.000</td>
-            <td>Rp 6.000</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Product 3</td>
-            <td>5</td>
-            <td>Rp 4.000</td>
-            <td>Rp 20.000</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Product 4</td>
-            <td>4</td>
-            <td>Rp 5.000</td>
-            <td>Rp 20.000</td>
-          </tr>
+          {{ end }}
         </tbody>
       </table>
 
-      <div class="report-total">
-        Total = <strong>Rp 50.000</strong>
+      <div class="report-total-box">
+        <strong class="report-total-text">Total: Rp {{ .GrandTotal }}</strong>
       </div>
 
-      <div class="report-actions">
-        <button class="report-btn print-btn">🖨 Print</button>
-        <button class="report-btn send-btn">✉ Send</button>
+      <div class="report-action-buttons">
+        <button class="report-button print-button" onclick="window.print()">🖨 Print</button>
+        <button class="report-button export-button" onclick="downloadCSV()">⬇ Export CSV</button>
       </div>
     </main>
   </section>
 
+  <script>
+    function filterByDate() {
+      const selectedDate = document.getElementById("dateSelect").value;
+      const rows = document.querySelectorAll("#report-body tr");
+      let grandTotal = 0;
+
+      rows.forEach(row => {
+        if (!selectedDate || row.dataset.date === selectedDate) {
+          row.style.display = "";
+          grandTotal += parseInt(row.children[4].textContent.replace(/[\D]/g, '')) || 0;
+        } else {
+          row.style.display = "none";
+        }
+      });
+
+      document.querySelector(".report-total-text").textContent = "Total: Rp " + grandTotal.toLocaleString('id-ID');
+    }
+
+    function downloadCSV() {
+      let csv = "ID,Product,Quantity,Base Cost,Total Cost\n";
+      const rows = document.querySelectorAll("#report-body tr");
+      rows.forEach(row => {
+        if (row.style.display !== "none") {
+          const cols = Array.from(row.children).map(td => td.textContent.trim());
+          csv += cols.join(",") + "\n";
+        }
+      });
+
+      const blob = new Blob([csv], { type: "text/csv" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "report.csv";
+      link.click();
+    }
+  </script>
 </body>
 
 </html>
