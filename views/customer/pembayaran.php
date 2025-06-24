@@ -156,7 +156,7 @@ $totalTagihan = 0;
     <!-- Metode default -->
     <div class="mb-3 d-flex justify-content-between align-items-start">
       <div class="d-flex align-items-center">
-        <img src="img/bca-va.png" height="24" class="me-2">
+        <img src="images/logobca.png" height="24" class="me-2">
         <div>
           <strong>BCA Virtual Account</strong><br>
           <small class="text-muted">Mudah & terverifikasi otomatis</small>
@@ -169,7 +169,7 @@ $totalTagihan = 0;
     <div id="more-methods" class="d-none">
       <div class="mb-3 d-flex justify-content-between align-items-start">
         <div class="d-flex align-items-center">
-          <img src="img/gopay.png" height="24" class="me-2">
+          <img src="images/logogopay.png" height="24" class="me-2">
           <div>
             <strong>GoPay</strong><br>
             <small class="text-muted">Pembayaran cepat lewat QR</small>
@@ -179,7 +179,7 @@ $totalTagihan = 0;
       </div>
       <div class="mb-3 d-flex justify-content-between align-items-start">
         <div class="d-flex align-items-center">
-          <img src="img/shopeepay.png" height="24" class="me-2">
+          <img src="images/logospay.png" height="24" class="me-2">
           <div>
             <strong>ShopeePay</strong><br>
             <small class="text-muted">Dompet digital Shopee</small>
@@ -232,6 +232,7 @@ $totalTagihan = 0;
     </div>
   </div>
 </div>
+
 <script>
 document.getElementById("formBayar").addEventListener("submit", function(e) {
   const metode = document.querySelector('input[name="metode_pembayaran"]:checked').value.toLowerCase();
@@ -245,11 +246,10 @@ document.getElementById("formBayar").addEventListener("submit", function(e) {
   }
 });
 </script>
-<footer class="text-center text-white bg-primary py-2 mt-4">
-  © SI-SUPLY 2024
-</footer>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

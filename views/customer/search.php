@@ -1,5 +1,6 @@
 <?php
 include 'koneksi.php';
+session_start();
 
 $keyword = $_GET['q'] ?? '';
 $kategori = $_GET['category'] ?? '';
@@ -29,9 +30,16 @@ if (mysqli_num_rows($result) === 1) {
   <meta charset="UTF-8">
   <title>Hasil Pencarian Produk</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 <body class="bg-light">
+        <?php include('../../parts/customer/navbar2.php'); ?>
+
   <div class="container py-5">
+ <div class="breadcrumb mb-3">
+    <a href="produk.php">Home</a> > <a href="#">Search</a>
+  </div>
     <h3>Hasil Pencarian Produk</h3>
     <hr>
 

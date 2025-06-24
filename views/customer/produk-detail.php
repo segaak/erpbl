@@ -1,5 +1,7 @@
 <?php
 include 'koneksi.php';
+session_start();
+
 include('../../parts/customer/navbar2.php');
 
 if (!isset($_GET['id'])) {
@@ -23,7 +25,7 @@ if (!$produk) {
   <meta charset="UTF-8">
   <title><?= $produk['nama_produk']; ?> - Detail Produk</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>  <style>
     body {
       background-color: #f6f7fb;
     }
@@ -128,7 +130,7 @@ if (!$produk) {
     <img src="images/produk/<?= $produk['gambar']; ?>" onclick="changeImage(this.src)" class="border opacity-50" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;">
   </div>
 
-  <p class="mt-2 mb-0 fw-semibold">Stock = <?= $produk['stok']; ?></p>
+  <p class="mt-2 mb-0 fw-semibold">Stock = <?= $produk['Stok']; ?></p>
 </div>
 
 

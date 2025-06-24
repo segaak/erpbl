@@ -53,7 +53,7 @@ $subtotal = $total_tagihan - $ongkir - $asuransi;
     <div class="container my-5">
         <div class="card invoice-card p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <img src="assets/logo.png" alt="Logo" style="height: 50px;">
+                <img src="images/logo.jpg" alt="Logo" style="height: 50px;">
                 <div class="text-end">
                     <h5 class="mb-1 fw-bold text-success">Invoice</h5>
                     <small class="text-muted">Order ID: #<?= $pembayaran['id'] ?></small>

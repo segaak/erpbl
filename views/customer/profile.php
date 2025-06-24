@@ -50,7 +50,7 @@ $user = $result->fetch_assoc();
 <div class="container mt-5">
   <div class="profile-box">
     <div class="d-flex align-items-center mb-4">
-      <img src="<?= $user['foto_profil'] ? 'uploads/' . htmlspecialchars($user['foto_profil']) : 'https://i.pravatar.cc/100' ?>" class="profile-img me-3" alt="Profile Photo">
+      <img src="<?= $user['foto_profil']   ?>" class="profile-img me-3" alt="Profile Photo">
       <div>
         <h5 class="mb-0"><?= htmlspecialchars($user['username']) ?></h5>
         <small><?= htmlspecialchars($user['email']) ?></small>

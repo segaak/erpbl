@@ -86,12 +86,12 @@ $deadline = date('d F Y, H.i', strtotime('+1 day'));
     <h2 class="fw-bold text-dark">Rp<?= number_format($_SESSION['total_bayar'], 0, ',', '.') ?></h2>
 
     <div class="bank-logo">
-      <img src="images/bni_logo.png" alt="BNI" height="24">
+      <img src="images/logobca.png" alt="BCA" height="24">
     </div>
 
     <p class="text-muted mt-3">Virtual Account Number</p>
     <div class="va-number"><?= $virtual_account ?></div>
-    <p class="text-muted small mt-1">Only accept from Bank BNI</p>
+    <p class="text-muted small mt-1">Only accept from Bank BCA</p>
 
     <p class="expiry">Valid until : <?= $deadline ?></p>
        <form action="bayar.php" method="post">
@@ -101,12 +101,14 @@ $deadline = date('d F Y, H.i', strtotime('+1 day'));
   <br>
   <div class="qr-container">
     <h6>Instruksi Pembayaran</h6>
-    <ol class="mb-2 text-start">
-      <li>Buka aplikasi QRIS (Gopay, OVO, Dana, dll)</li>
-      <li>Scan kode QR di atas</li>
-      <li>Periksa dan konfirmasi detail pembayaran</li>
-      <li>Setelah berhasil, klik tombol di atas untuk melihat invoice</li>
-    </ol>
+     <ol class="list-decimal pl-5 space-y-2 text-sm">
+                <li>Login to your Bank BCA Mobile Banking app or Internet Banking</li>
+                <li>Select "Transfer" or "Payment" menu</li>
+                <li>Choose "Virtual Account" option</li>
+                <li>Enter the virtual account number: <?= $virtual_account ?></li>
+                <li>Confirm the payment details and complete the transaction</li>
+                <li>Save your payment receipt</li>
+            </ol>
     <div class="choose-method">
       <a href="pembayaran.php">&larr; Pilih Metode Pembayaran Lain</a>
     </div>
