@@ -1,96 +1,273 @@
 {{ define "ownerdashboard" }}
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/static/style.css">
-	<title>Owner Dashboard Page</title>
-	
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+  <title>Owner Dashboard</title>
+  <style>
+    .chart-container {
+      position: relative;
+      height: 300px;
+      margin-bottom: 16px;
+    }
+     .customer-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 4px;
+    }
+    
+    .customer-label {
+      font-size: 14px;
+      color: #6b7280;
+    }
+     .analytics-chart {
+      height: 150px;
+      position: relative;
+    }
+    .owner-analytics-card {
+  position: relative;
+  height: 200px; /* batasi tinggi biar gak terus nambah */
+}
+#analyticsChart {
+  height: 100%;
+}
+    </style>
 </head>
-
 <body>
+  {{ template "sidebar" . }}
+  <section id="content">
+    {{ template "navbar" . }}
+    <main>
+      <h1 class="owner-dashboard-title">Dashboard</h1>
 
-
-	<!-- SIDEBAR -->
-
-	{{ template "sidebar" . }}
-
-
-	<!-- SIDEBAR -->
-
-
-
-	<!-- CONTENT -->
-	<section id="content">
-		<!-- NAVBAR -->
-		{{ template "navbar" . }}
-
-		<!-- NAVBAR -->
-
-		<!-- MAIN -->
-		<main>
-           <h1 class="owner-dashboard-title">Dashboard</h1>
-
-            <!-- Revenue Chart -->
-            <div class="owner-revenue-section">
-                <div class="owner-revenue-header">
-                    <h2>Revenue</h2>
-                    <select>
-                        <option>October</option>
-                    </select>
-                </div>
-                <img src="/static/images/chart-placeholder.png" alt="Chart" class="owner-revenue-chart">
-                <div class="owner-revenue-legend">
-                    <span><span class="dot sales"></span>Sales</span>
-                    <span><span class="dot profit"></span>Profit</span>
-                </div>
-            </div>
-
-            <!-- Summary Cards -->
-            <div class="owner-summary-cards">
-                <!-- Customers -->
-                <div class="owner-card owner-customers-card">
-                    <h3>Customers</h3>
-                    <div class="owner-customers-content">
-                        <div class="owner-customers-circle"></div>
-                        <div>
-                            <p class="owner-customers-new">34,249 New Customers</p>
-                            <p class="owner-customers-repeated">1,420 Repeated</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Total Penjualan -->
-                <div class="owner-card owner-sales-card">
-                    <h3>Total Penjualan</h3>
-                    <p class="owner-sales-value">Rp 10,000,000</p>
-                    <p class="owner-sales-down">⬇ 4.3% turun dari minggu lalu</p>
-                </div>
-
-                <!-- Total Pesanan -->
-                <div class="owner-card owner-orders-card">
-                    <h3>Total Pesanan</h3>
-                    <p class="owner-orders-value">2040</p>
-                    <p class="owner-orders-up">⬆ 1.8% naik dari minggu lalu</p>
-                </div>
-
-                <!-- Sales Analytics -->
-                <div class="owner-card owner-analytics-card">
-                    <h3>Sales Analytics</h3>
-                    <img src="/static/images/analytics-placeholder.png" alt="Sales Analytics" class="owner-analytics-img">
-                </div>
-            </div>
+      <div class="owner-revenue-section">
+        <div class="owner-revenue-header">
+          <h2>Revenue</h2>
+         <select class="month-selector" id="monthSelector" onchange="updateRevenueChart()">
+            <option value="1">Januari</option>
+            <option value="2">Februari</option>
+            <option value="3">Maret</option>
+            <option value="4">April</option>
+            <option value="5">Mei</option>
+            <option value="6">Juni</option>
+            <option value="7">Juli</option>
+            <option value="8">Agustus</option>
+            <option value="9">September</option>
+            <option value="10" selected>Oktober</option>
+            <option value="11">November</option>
+            <option value="12">Desember</option>
+          </select>
         </div>
-    </div>
-			</main>
-	</section>
-	<!-- CONTENT -->
+         <div class="chart-container">
+          <canvas id="revenueChart"></canvas>
+        </div>
+        <div class="owner-revenue-legend">
+          <span><span class="dot sales"></span>Sales</span>
+          <span><span class="dot profit"></span>Profit</span>
+        </div>
+      </div>
 
-	
+      <div class="owner-summary-cards">
+        <div class="owner-card owner-customers-card">
+          <h3>Customers</h3>
+          <div class="owner-customers-content">
+            <div class="owner-customers-circle"></div>
+            <div>
+              <div class="customer-number">{{ .TotalCustomer }}</div>
+              <div class="customer-label">New Customers</div>
+              <div class="customer-number" style="font-size: 18px; margin-top: 8px;">{{ .RepeatedCustomers }}</div>
+              <div class="customer-label">Repeated</div>
+            </div>
+          </div>
+        </div>
 
+        <div class="owner-card owner-sales-card">
+          <h3>Total Penjualan</h3>
+          <p class="owner-sales-value">Rp {{ .TotalSales | printf "%.0f" | printf "%s" }}</p>
+          {{ if and .SalesChange .SalesChangeIsUp }}
+            <p class="owner-sales-up">⬆ {{ printf "%.1f" .SalesChange }}% naik dari minggu lalu</p>
+          {{ else if .SalesChange }}
+            <p class="owner-sales-down">⬇ {{ printf "%.1f" .SalesChange }}% turun dari minggu lalu</p>
+          {{ else }}
+            <p class="owner-sales-neutral">Data belum tersedia</p>
+          {{ end }}
+        </div>
+
+        <div class="owner-card owner-orders-card">
+          <h3>Total Pesanan</h3>
+          <p class="owner-orders-value">{{ if .TotalOrder }}{{ .TotalOrder }}{{ else }}0{{ end }}</p>
+        </div>
+
+        <div class="owner-card owner-analytics-card">
+          <h3>Sales Analytics</h3>
+          <canvas id="analyticsChart"  height="100"></canvas>
+        </div>
+      </div>
+    </main>
+  </section>
+  
+  <!-- Load Chart.js only once -->
+   <script type="application/json" id="chart-years">{{ .Years | toJson }}</script>
+  <script type="application/json" id="chart-sales">{{ .YearlySalesTotals | toJson }}</script>
+  <script type="application/json" id="monthly-revenue">{{ .MonthlyRevenue | toJson }}</script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/static/script.js"></script>
+  <script>
+    let revenueChart;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get data from JSON scripts
+      const yearsElement = document.getElementById('chart-years');
+      const salesElement = document.getElementById('chart-sales');
+      const monthlyRevenueElement = document.getElementById('monthly-revenue');
+      
+      let chartYears = [];
+      let chartSales = [];
+      let monthlyRevenue = {};
+      
+      try {
+        chartYears = yearsElement ? JSON.parse(yearsElement.textContent) : [];
+        chartSales = salesElement ? JSON.parse(salesElement.textContent) : [];
+        monthlyRevenue = monthlyRevenueElement ? JSON.parse(monthlyRevenueElement.textContent) : {};
+      } catch (e) {
+        console.warn('Error parsing chart data:', e);
+      }
+      
+      // Revenue Chart
+      const revenueCanvas = document.getElementById('revenueChart');
+      if (revenueCanvas) {
+        const revenueCtx = revenueCanvas.getContext('2d');
+        
+        // Initial data for October (month 10)
+        const currentMonth = 10;
+        const currentMonthData = monthlyRevenue[currentMonth] || {
+          sales: [20, 40, 30, 35, 50, 60, 85, 60, 65, 55, 58, 40],
+          profit: [15, 30, 22, 25, 35, 45, 65, 45, 48, 40, 43, 30]
+        };
+        
+        revenueChart = new Chart(revenueCtx, {
+          type: 'line',
+          data: {
+            labels: ['5k','10k','15k','20k','25k','30k','35k','40k','45k','50k','55k','60k'],
+            datasets: [
+              {
+                label: 'Sales',
+                data: currentMonthData.sales,
+                borderColor: '#f97316',
+                backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                fill: true,
+                tension: 0.4,
+                borderWidth: 2
+              },
+              {
+                label: 'Profit',
+                data: currentMonthData.profit,
+                borderColor: '#8b5cf6',
+                backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                fill: true,
+                tension: 0.4,
+                borderWidth: 2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { 
+              legend: { display: false } 
+            },
+            scales: {
+              y: { 
+                beginAtZero: true,
+                grid: { color: '#f3f4f6' },
+                ticks: { color: '#9ca3af' }
+              },
+              x: { 
+                grid: { display: false },
+                ticks: { color: '#9ca3af' }
+              }
+            }
+          }
+        });
+      }
+
+      // Analytics Chart
+      const analyticsCanvas = document.getElementById('analyticsChart');
+      if (analyticsCanvas) {
+        const analyticsCtx = analyticsCanvas.getContext('2d');
+        
+        if (chartYears.length > 0 && chartSales.length > 0) {
+          new Chart(analyticsCtx, {
+            type: 'line',
+            data: {
+              labels: chartYears,
+              datasets: [{
+                label: 'Total Sales',
+                data: chartSales,
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                fill: true,
+                tension: 0.3,
+                borderWidth: 2,
+                pointRadius: 3,
+                pointHoverRadius: 5
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { 
+                legend: { display: false } 
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  grid: { color: '#f3f4f6' },
+                  ticks: { 
+                    color: '#9ca3af',
+                    callback: function(value) {
+                      return 'Rp ' + (value / 1000000) + 'M';
+                    }
+                  }
+                },
+                x: { 
+                  grid: { display: false },
+                  ticks: { color: '#9ca3af' }
+                }
+              }
+            }
+          });
+        }
+      }
+    });
+    
+    // Function to update revenue chart based on month selection
+    function updateRevenueChart() {
+      const monthSelector = document.getElementById('monthSelector');
+      const selectedMonth = monthSelector.value;
+      
+      // This would typically fetch data from server
+      // For now, using sample data
+      const monthlyData = {
+        1: { sales: [15, 35, 25, 30, 45, 55, 75, 55, 60, 50, 53, 35], profit: [12, 28, 20, 23, 33, 43, 60, 43, 46, 38, 41, 28] },
+        2: { sales: [18, 38, 28, 33, 48, 58, 78, 58, 63, 53, 56, 38], profit: [14, 30, 22, 25, 35, 45, 62, 45, 48, 40, 43, 30] },
+        // Add more months as needed
+        10: { sales: [20, 40, 30, 35, 50, 60, 85, 60, 65, 55, 58, 40], profit: [15, 30, 22, 25, 35, 45, 65, 45, 48, 40, 43, 30] }
+      };
+      
+      const newData = monthlyData[selectedMonth] || monthlyData[10];
+      
+      if (revenueChart) {
+        revenueChart.data.datasets[0].data = newData.sales;
+        revenueChart.data.datasets[1].data = newData.profit;
+        revenueChart.update();
+      }
+    }
+  </script>
 </body>
-
 </html>
 {{ end }}

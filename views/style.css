@@ -1043,78 +1043,87 @@ body {
 }
 
 /* owner report */
-.owner-report-container {
-  max-width: 1200px;
-  margin: 0 auto;
+.owner-main {
+	padding: 20px;
 }
 
-.owner-report-title {
-  font-size: 26px;
-  font-weight: bold;
-  margin-bottom: 20px;
+.report-title {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 20px;
 }
 
-.owner-report-chart-section {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 30px;
+.report-sales-card {
+	background: white;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+	margin-bottom: 30px;
 }
 
-.owner-report-chart-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.report-sales-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
 }
 
-.owner-report-chart-img {
+.report-sales-title {
+	font-size: 20px;
+}
+
+.report-month-select {
+	padding: 5px 10px;
+	border-radius: 6px;
+}
+
+.report-sales-canvas {
+	 height: 300px;
   width: 100%;
-  height: 200px;
-  object-fit: contain;
-  margin-top: 15px;
+  display: block;
 }
 
-.owner-report-table-section {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
+.report-table-section {
+	background: white;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.owner-report-table {
-  width: 100%;
-  border-collapse: collapse;
+.report-table-title {
+	margin-bottom: 15px;
+	font-size: 20px;
 }
 
-.owner-report-table th,
-.owner-report-table td {
-  padding: 12px 16px;
-  border-bottom: 1px solid #ddd;
-  text-align: center;
+.report-table {
+	width: 100%;
+	border-collapse: collapse;
 }
 
-.owner-report-table th {
-  background-color: #f9fafb;
-  font-weight: 600;
+.report-table th, .report-table td {
+	padding: 10px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
 }
 
-.owner-report-btn {
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  margin: 0 4px;
+.btn-edit, .btn-delete {
+	padding: 5px 8px;
+	border: none;
+	cursor: pointer;
 }
 
-.owner-report-btn.edit {
-  background-color: #e0f2fe;
-  color: #0284c7;
+.btn-edit {
+	background-color: #f0ad4e;
+	color: white;
+	border-radius: 4px;
 }
 
-.owner-report-btn.delete {
-  background-color: #fee2e2;
-  color: #dc2626;
+.btn-delete {
+	background-color: #d9534f;
+	color: white;
+	border-radius: 4px;
 }
+
 /* owner report  */
 
 /* owner transaksi report */

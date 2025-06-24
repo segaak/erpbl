@@ -9,14 +9,14 @@
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<!-- My CSS -->
-    
-    <link rel="stylesheet" href="/static/style.css">
+
+	<link rel="stylesheet" href="/static/style.css">
 
 	<title>Dashboard</title>
-    <style>
-        
-          
-    </style>
+	<style>
+
+
+	</style>
 
 
 </head>
@@ -25,9 +25,9 @@
 
 
 	<!-- SIDEBAR -->
-	
-    {{ template "sidebar" . }}
-   
+
+	{{ template "sidebar" . }}
+
 
 	<!-- SIDEBAR -->
 
@@ -36,7 +36,7 @@
 	<!-- CONTENT -->
 	<section id="content">
 		<!-- NAVBAR -->
-        {{ template "navbar" . }}
+		{{ template "navbar" . }}
 
 		<!-- NAVBAR -->
 
@@ -45,7 +45,7 @@
 			<div class="head-title">
 				<div class="left">
 					<h1><a href="http://localhost/erpbl/views/customer/produk.php">Produk</a></h1>
-					
+
 				</div>
 			</div>
 			<ul class="box-info">
@@ -130,16 +130,25 @@
 			<div class="chart-card">
 				<div class="chart-header">
 					<h3>Detail Penjualan</h3>
-					<select>
-						<option>Maret</option>
-						<option>April</option>
-						<option>Mei</option>
+					<select id="monthSelect" onchange="loadSalesChart()">
+						<option value="01">Januari</option>
+						<option value="02">Februari</option>
+						<option value="03">Maret</option>
+						<option value="04">April</option>
+						<option value="05">Mei</option>
+						<option value="06">Juni</option>
+						<option value="07">Juli</option>
+						<option value="08">Agustus</option>
+						<option value="09">September</option>
+						<option value="10">Oktober</option>
+						<option value="11">November</option>
+						<option value="12">Desember</option>
 					</select>
 				</div>
 				<canvas id="salesChart" height="100"></canvas>
 			</div>
 
-            <div class="transaksi-card">
+			<div class="transaksi-card">
 				<div class="transaksi-header">
 					<h3>Detail transaksi</h3>
 					<select>
@@ -147,33 +156,33 @@
 						<option>April</option>
 						<option>Mei</option>
 					</select>
-                </div>
-                    <table class="transaksi-table">
-                        <thead>
-                          <tr>
-                            <th>Nama Pembeli</th>
-                            <th>Alamat</th>
-                            <th>Waktu Pembelian</th>
-                            <th>Jumlah</th>
-                            <th>Biaya</th>
-                            <th>Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td class="pembeli">
-                              <img src="https://i.pravatar.cc/40" alt="avatar">
-                              <span>Gabriel Egi</span>
-                            </td>
-                            <td>Banguntapan-Bantul<br>RT 12-RW14 No 69</td>
-                            <td>09-03-2025 - 12.53 PM</td>
-                            <td>40 🧾</td>
-                            <td>Rp 5,000,000</td>
-                            <td><span class="badge delivered">Delivered</span></td>
-                          </tr>
-                        </tbody>
-                      </table>
-            </div>
+				</div>
+				<table class="transaksi-table">
+					<thead>
+						<tr>
+							<th>Nama Pembeli</th>
+							<th>Alamat</th>
+							<th>Waktu Pembelian</th>
+							<th>Jumlah</th>
+							<th>Biaya</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="pembeli">
+								<img src="https://i.pravatar.cc/40" alt="avatar">
+								<span>Gabriel Egi</span>
+							</td>
+							<td>Banguntapan-Bantul<br>RT 12-RW14 No 69</td>
+							<td>09-03-2025 - 12.53 PM</td>
+							<td>40 🧾</td>
+							<td>Rp 5,000,000</td>
+							<td><span class="badge delivered">Delivered</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
 		</main>
 
@@ -184,66 +193,66 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="../script.js"></script>
 	<script>
-		const ctx = document.getElementById('salesChart').getContext('2d');
+let salesChart;
 
-		new Chart(ctx, {
-			type: 'line',
-			data: {
-				labels: ['100k', '200k', '300k', '400k', '500k', '600k', '700k', '800k', '900k', '1000k', '1100k', '1200k'],
-				datasets: [{
-					data: [22, 45, 38, 90, 47, 55, 22, 40, 78, 70, 65, 60],
-					borderColor: '#3b82f6',
-					backgroundColor: 'rgba(59, 130, 246, 0.1)',
-					fill: true,
-					tension: 0, // bikin patah-patah
-					pointBackgroundColor: '#3b82f6',
-					pointRadius: 4,
-					pointHoverRadius: 6,
-					pointBorderWidth: 2,
-					borderWidth: 2,
-				}]
-			},
-			options: {
-				responsive: true,
-				plugins: {
-					tooltip: {
-						callbacks: {
-							label: function(context) {
-								return `Rp ${context.raw.toLocaleString('id-ID')}`;
-							}
-						},
-						backgroundColor: '#111827',
-						titleColor: '#fff',
-						bodyColor: '#fff',
-					},
-					legend: {
-						display: false
-					}
-				},
-				scales: {
-					y: {
-						min: 0,
-						max: 100,
-						ticks: {
-							callback: function(value) {
-								return value + '%';
-							}
-						},
-						grid: {
-							color: '#e5e7eb'
-						}
-					},
-					x: {
-						grid: {
-							display: false
-						}
-					}
-				}
-			}
-		});
-	</script>
-   
-      
+function loadSalesChart() {
+  const month = document.getElementById("monthSelect").value;
+  fetch(`/admin/saleschart?month=${month}`)
+    .then(res => res.json())
+    .then(data => {
+      const labels = data.map(item => item.label);
+      const values = data.map(item => item.value);
+
+      if (salesChart) salesChart.destroy();
+
+      const ctx = document.getElementById("salesChart").getContext("2d");
+      salesChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: "Total Transaksi",
+            data: values,
+            borderColor: "#3b82f6",
+            backgroundColor: "rgba(59, 130, 246, 0.1)",
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: "#3b82f6",
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            borderWidth: 2,
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return "Rp " + context.raw.toLocaleString("id-ID");
+                }
+              }
+            },
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              ticks: {
+                callback: value => "Rp " + value.toLocaleString("id-ID")
+              }
+            }
+          }
+        }
+      });
+    });
+}
+
+window.onload = loadSalesChart;
+</script>
+
+
 </body>
 
 </html>

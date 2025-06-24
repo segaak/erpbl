@@ -1,101 +1,116 @@
 {{ define "ownerproduct" }}
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Report Product</title>
 	<link rel="stylesheet" href="/static/style.css">
-	<title>Owner Dashboard Page</title>
-	
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
-
-
-	<!-- SIDEBAR -->
-
 	{{ template "sidebar" . }}
-
-
-	<!-- SIDEBAR -->
-
-
-
-	<!-- CONTENT -->
 	<section id="content">
-		<!-- NAVBAR -->
 		{{ template "navbar" . }}
 
-		<!-- NAVBAR -->
+		<main class="owner-report-main">
+			<h1 class="owner-report-title">Report Product</h1>
 
-		<!-- MAIN -->
-		<main>
-         <div class="owner-report-container">
-    <h1 class="owner-report-title">Owner Report</h1>
+			<div class="owner-report-card">
+				<div class="owner-report-card-header">
+					<h2 class="owner-report-chart-title">Product Sales</h2>
+					<form method="get" class="owner-report-form">
+						<select name="month" onchange="this.form.submit()" class="owner-report-select">
+							{{ range $i, $m := (slice "01" "02" "03" "04" "05" "06" "07" "08" "09" "10" "11" "12") }}
+								<option value="{{ $m }}" {{ if eq $.SelectedMonth $m }}selected{{ end }}>{{ $m }}</option>
+							{{ end }}
+						</select>
+					</form>
+				</div>
+				<canvas id="salesChart" width="600" height="300" class="owner-report-canvas"></canvas>
+			</div>
 
-    <!-- Product Sales Chart -->
-    <div class="owner-report-chart-section">
-      <div class="owner-report-chart-header">
-        <h2>Product Sales</h2>
-        <select>
-          <option>October</option>
-        </select>
-      </div>
-      <img src="/static/images/bar-chart-placeholder.png" alt="Product Sales Chart" class="owner-report-chart-img">
-    </div>
-
-    <!-- Detail Product Table -->
-    <div class="owner-report-table-section">
-      <h2>Detail Product</h2>
-      <table class="owner-report-table">
-        <thead>
-          <tr>
-            <th>Image</th>
-            <th>Product Name</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Piece</th>
-            <th>Piece</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Beras 5KG</td>
-            <td>Beras 5KG</td>
-            <td>Bahan Pokok</td>
-            <td>Rp 65,000</td>
-            <td>63</td>
-            <td>63</td>
-            <td>
-              <button class="owner-report-btn edit">✎</button>
-              <button class="owner-report-btn delete">🗑</button>
-            </td>
-          </tr>
-          <tr>
-            <td>Beras 5KG</td>
-            <td>Beras 5KG</td>
-            <td>Bahan Pokok</td>
-            <td>Rp 65,000</td>
-            <td>63</td>
-            <td>63</td>
-            <td>
-              <button class="owner-report-btn edit">✎</button>
-              <button class="owner-report-btn delete">🗑</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-			</main>
+			<div class="owner-report-table-section">
+				<h2 class="owner-report-table-title">Detail Product</h2>
+				<table class="owner-report-table">
+					<thead>
+						<tr>
+							<th>Image</th>
+							<th>Name</th>
+							<th>Category</th>
+							<th>Price</th>
+							<th>Stock</th>
+							<th>Unit</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{ range .ProductList }}
+						<tr>
+							<td><img src="/customer-image/{{ .Gambar }}" alt="{{ .NamaProduk }}" width="50" /></td>
+							<td>{{ .NamaProduk }}</td>
+							<td>{{ .Kategori }}</td>
+							<td>Rp {{ printf "%.0f" .Harga }}</td>
+							<td>{{ .Stok }}</td>
+							<td>{{ .Satuan }}</td>
+							<td>
+								<button class="owner-report-btn-edit">✎</button>
+								<button class="owner-report-btn-delete">🗑</button>
+							</td>
+						</tr>
+						{{ end }}
+					</tbody>
+				</table>
+			</div>
+		</main>
 	</section>
-	<!-- CONTENT -->
 
-	
+	<script type="application/json" id="sales-data">{{ .SalesData | toJson }}</script>
+	<script>
+window.addEventListener("DOMContentLoaded", function () {
+	const canvas = document.getElementById("salesChart");
+	const salesDataElement = document.getElementById("sales-data");
+
+	if (!canvas || !salesDataElement) {
+		console.warn("Chart canvas or sales data not found.");
+		return;
+	}
+
+	const rawData = salesDataElement.textContent;
+	if (!rawData || rawData.trim() === "" || rawData.trim() === "null" || rawData.trim() === "[]") {
+		console.warn("Sales data is empty.");
+		return;
+	}
+
+	try {
+		const salesData = JSON.parse(rawData);
+		const labels = salesData.map(item => item.nama_produk);
+		const data = salesData.map(item => item.total_terjual);
+
+		const ctx = canvas.getContext("2d");
+		new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: labels,
+				datasets: [{
+					label: 'Total Terjual',
+					data: data,
+					backgroundColor: 'rgba(54, 162, 235, 0.6)',
+					borderRadius: 6
+				}]
+			},
+			options: {
+				responsive: true,
+				scales: {
+					y: { beginAtZero: true }
+				}
+			}
+		});
+	} catch (e) {
+		console.error("Chart rendering failed:", e);
+	}
+});
+</script>
 
 </body>
-
 </html>
 {{ end }}
