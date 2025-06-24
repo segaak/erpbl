@@ -1,36 +1,22 @@
-<?php
-session_start();
+<?php 
 include 'koneksi.php';
+session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $metode = $_POST['metode_pembayaran'] ?? '';
-    $total = $_POST['total_bayar'] ?? 0;
-    $tanggal = date('Y-m-d H:i:s');
-
-    // Simpan ke tabel pembayaran
-    $stmt = $conn->prepare("INSERT INTO pembayaran (metode_pembayaran, total_bayar, tanggal) VALUES (?, ?, ?)");
-    $stmt->bind_param("sis", $metode, $total, $tanggal);
-
-    if ($stmt->execute()) {
-        $id_pembayaran = $stmt->insert_id;
-
-        // Kosongkan keranjang
-        $_SESSION['cart'] = [];
-
-        // Simpan ID pembayaran ke session untuk QR
-        $_SESSION['last_payment_id'] = $id_pembayaran;
-        
-        // Redirect ke halaman QR
-        header("Location: show_qr.php?id=" . $id_pembayaran);
-        exit;
-    } else {
-        echo "Gagal menyimpan pembayaran.";
-    }
-} else {
-    echo "Akses tidak valid.";
+// Cek apakah user sudah login
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
 }
-?>
 
+$username = $_SESSION['username'];
+
+// Ambil data user dari database berdasarkan username
+$stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+?>
 
 <!DOCTYPE html>
 <html lang="id">
@@ -38,8 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8">
   <title>Profil Saya</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <style>  <style>
     body {
+      
       background-color: #eaf6ff;
     }
     .profile-box {
@@ -53,22 +41,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       border-radius: 50%;
       object-fit: cover;
     }
-    .email-box {
-      background-color: #f1f5ff;
-      padding: 15px;
-      border-radius: 8px;
-    }
   </style>
 </head>
 <body>
-    <?php include('../../parts/customer/navbar2.php'); ?>
+
+<?php include('../../parts/customer/navbar2.php'); ?>
+
 <div class="container mt-5">
   <div class="profile-box">
     <div class="d-flex align-items-center mb-4">
-      <img src="https://i.pravatar.cc/100" class="profile-img me-3" alt="Profile Photo">
+      <img src="<?= $user['foto_profil'] ? 'uploads/' . htmlspecialchars($user['foto_profil']) : 'https://i.pravatar.cc/100' ?>" class="profile-img me-3" alt="Profile Photo">
       <div>
-        <h5 class="mb-0"><?= $user['fullname'] ?></h5>
-        <small><?= $user['email'] ?></small>
+        <h5 class="mb-0"><?= htmlspecialchars($user['username']) ?></h5>
+        <small><?= htmlspecialchars($user['email']) ?></small>
       </div>
       <div class="ms-auto">
         <a href="edit_profil.php" class="btn btn-primary">Edit</a>
@@ -78,34 +63,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="row mb-4">
       <div class="col-md-6">
         <label class="form-label">Full Name</label>
-        <input type="text" class="form-control" value="<?= $user['fullname'] ?>" disabled>
+        <input type="text" class="form-control" value="<?= htmlspecialchars($user['nama']) ?>" disabled>
       </div>
       <div class="col-md-6">
         <label class="form-label">Nick Name</label>
-        <input type="text" class="form-control" value="<?= $user['nickname'] ?>" disabled>
+        <input type="text" class="form-control" value="<?= htmlspecialchars($user['username']) ?>" disabled>
       </div>
       <div class="col-md-6 mt-3">
-        <label class="form-label">No. Telpon</label>
-        <input type="text" class="form-control" value="<?= $user['phone'] ?>" disabled>
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" value="<?= htmlspecialchars($user['email']) ?>" disabled>
       </div>
       <div class="col-md-6 mt-3">
         <label class="form-label">Alamat</label>
-        <input type="text" class="form-control" value="<?= $user['address'] ?>" disabled>
+        <input type="text" class="form-control" value="<?= htmlspecialchars($user['alamat']) ?>" disabled>
+      </div>
+      <div class="col-md-6 mt-3">
+        <label class="form-label">No. Telpon</label>
+        <input type="text" class="form-control" value="<?= htmlspecialchars($user['no_hp']) ?>" disabled>
       </div>
     </div>
 
-    <h6>My Email Address</h6>
-    <div class="email-box d-flex align-items-center mb-2">
-      <i class="bi bi-envelope-fill me-2"></i>
-      <div>
-        <?= $user['email'] ?><br>
-        <small class="text-muted">1 month ago</small>
-      </div>
-    </div>
-    <button class="btn btn-outline-primary">+ Add Email Address</button>
+    
   </div>
 </div>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </body>
 </html>

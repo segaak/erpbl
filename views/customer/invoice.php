@@ -120,7 +120,7 @@ $subtotal = $total_tagihan - $ongkir - $asuransi;
                 <button onclick="window.print()" class="btn btn-outline-secondary me-2">
                     Cetak
                 </button>
-                <a href="produk.php" class="btn btn-primary">Kembali ke Beranda</a>
+                <a href="riwayat_pesanan.php" class="btn btn-primary">Kembali ke Beranda</a>
             </div>
         </div>
     </div>
