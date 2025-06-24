@@ -112,12 +112,23 @@ $foto_profil = 'images/user-default.png';
   </div>
 
   <form class="search-form" action="search.php" method="GET">
-    <select name="category">
-      <option value="">All</option>
-      <option value="makanan">Makanan</option>
-      <option value="minuman">Minuman</option>
-      <option value="alat">Alat Tulis</option>
-    </select>
+  <select name="category">
+  <option value="">Semua</option>
+  <option value="gula">Gula</option>
+  <option value="tepung">Tepung</option>
+  <option value="minyak">Minyak</option>
+  <option value="telur">Telur</option>
+  <option value="beras">Beras</option>
+  <option value="kecap">Kecap</option>
+  <option value="susu">Susu</option>
+  <option value="sabun">Sabun</option>
+  <option value="makanan kaleng">Makanan Kaleng</option>
+  <option value="minuman">Minuman</option>
+  <option value="mie">Mie</option>
+  <option value="pasta gigi">Pasta Gigi</option>
+  <option value="tisu">Tisu</option>
+</select>
+
     <input type="text" name="q" placeholder="Cari produk...">
     <button type="submit">🔍</button>
   </form>
