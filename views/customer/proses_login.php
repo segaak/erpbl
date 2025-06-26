@@ -22,11 +22,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Arahkan berdasarkan roles
             if ($user['roles'] == 'admin') {
-                header("Location: http://localhost:8080/"); // admin
+                header("Location: https://si-supply.synergize.co/"); // admin
             } else if ($user['roles'] == 'customer') {
                 header("Location: ../customer/produk.php"); // user
             }else if ($user['roles'] == 'owner') {
-                header("Location: http://localhost:8080/ownerdashboard"); // owner
+                header("Location: https://si-supply.synergize.co/ownerdashboard"); // owner
             } else {
                 echo "<script>alert('Role tidak dikenali'); window.location.href='login.php';</script>";
             }
