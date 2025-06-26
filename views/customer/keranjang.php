@@ -169,7 +169,7 @@ foreach ($cart as $id => $qty) {
       <tr>
         <td>
           <div class="d-flex align-items-center gap-3">
-            <img src="img/<?= htmlspecialchars($product['gambar']); ?>" alt="">
+            <img src="images/<?= htmlspecialchars($product['gambar']); ?>" alt="">
             <div><?= htmlspecialchars($product['nama_produk']); ?></div>
           </div>
         </td>

@@ -118,7 +118,7 @@ $totalTagihan = 0;
             <tr>
               <td>
                 <div class="d-flex align-items-center gap-2">
-                  <img src="img/<?= htmlspecialchars($product['gambar']); ?>" alt="">
+                  <img src="images/<?= htmlspecialchars($product['gambar']); ?>" alt="">
                   <?= htmlspecialchars($product['nama_produk']); ?>
                 </div>
               </td>

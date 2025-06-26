@@ -167,8 +167,8 @@ if (!$produk) {
       <label for="quantity" class="form-label fw-bold mb-2">Jumlah pembelian</label>
       <div class="quantity-box">
         <button type="button" onclick="changeQty(-1)">-</button>
-<input type="number" name="quantity" id="quantity" value="1" min="1" max="<?= $produk['Stok']; ?>" class="form-control text-center" style="width: 60px;">
-        <button type="button" onclick="changeQty(1)">+</button>
+<input type="number" name="quantity" id="quantity" value="1" min="1" max="<?= $produk['Stok']; ?>" class="form-control text-center"style="width: 60px;">
+        <button type="button" onclick="changeQty(1)">+</button> 
       </div>
       <button type="submit" class="btn-add">Add</button>
     </form>
