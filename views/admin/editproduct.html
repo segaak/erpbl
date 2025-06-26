@@ -92,7 +92,7 @@
 
                     <div class="edit-product-field">
                         <label for="harga_diskon">Harga Diskon</label>
-                        <textarea id="harga_diskon" name="harga_diskon">{{.Product.Harga_Diskon}}</textarea>
+                        <textarea id="harga_diskon" name="harga_diskon">{{if .Product.Harga_Diskon.Valid}}{{.Product.Harga_Diskon.Int64}}{{end}}</textarea>
                     </div>
 
                     <div class="edit-product-field">
