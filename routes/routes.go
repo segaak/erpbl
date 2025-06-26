@@ -8,7 +8,7 @@ import (
 )
 
 func MapRoutes(server *http.ServeMux, db *sql.DB) {
-	server.HandleFunc("/", controller.DashboardHandler(db))
+	server.HandleFunc("/admindashboard", controller.DashboardHandler(db))
 	server.HandleFunc("/product", controller.ProductHandler(db))
 	server.HandleFunc("/order", controller.OrderHandler(db)) // GANTI DI SINI
 	server.HandleFunc("/report", controller.ReportHandler(db))

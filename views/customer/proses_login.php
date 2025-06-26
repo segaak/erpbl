@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Arahkan berdasarkan roles
             if ($user['roles'] == 'admin') {
-                header("Location: https://si-supply.synergize.co/"); // admin
+                header("Location: https://si-supply.synergize.co/admindashboard"); // admin
             } else if ($user['roles'] == 'customer') {
                 header("Location: ../customer/produk.php"); // user
             }else if ($user['roles'] == 'owner') {
