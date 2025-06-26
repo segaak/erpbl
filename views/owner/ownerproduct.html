@@ -9,19 +9,21 @@
 </head>
 <body>
 	{{ template "sidebar" . }}
+
 	<section id="content">
 		{{ template "navbar" . }}
 
 		<main class="owner-report-main">
 			<h1 class="owner-report-title">Report Product</h1>
 
+			<!-- === CARD: CHART PENJUALAN === -->
 			<div class="owner-report-card">
 				<div class="owner-report-card-header">
 					<h2 class="owner-report-chart-title">Product Sales</h2>
 					<form method="get" class="owner-report-form">
 						<select name="month" onchange="this.form.submit()" class="owner-report-select">
-							{{ range $i, $m := (slice "01" "02" "03" "04" "05" "06" "07" "08" "09" "10" "11" "12") }}
-								<option value="{{ $m }}" {{ if eq $.SelectedMonth $m }}selected{{ end }}>{{ $m }}</option>
+							{{ range $code, $name := .MonthOptions }}
+								<option value="{{ $code }}" {{ if eq $.SelectedMonth $code }}selected{{ end }}>{{ $name }}</option>
 							{{ end }}
 						</select>
 					</form>
@@ -29,6 +31,7 @@
 				<canvas id="salesChart" width="600" height="300" class="owner-report-canvas"></canvas>
 			</div>
 
+			<!-- === CARD: DETAIL PRODUK TERLARIS === -->
 			<div class="owner-report-table-section">
 				<h2 class="owner-report-table-title">Detail Product</h2>
 				<table class="owner-report-table">
@@ -46,7 +49,7 @@
 					<tbody>
 						{{ range .ProductList }}
 						<tr>
-							<td><img src="/customer-image/{{ .Gambar }}" alt="{{ .NamaProduk }}" width="50" /></td>
+							<td><img src="/customer-image/{{ .Gambar }}" alt="{{ .NamaProduk }}" /></td>
 							<td>{{ .NamaProduk }}</td>
 							<td>{{ .Kategori }}</td>
 							<td>Rp {{ printf "%.0f" .Harga }}</td>
@@ -66,51 +69,43 @@
 
 	<script type="application/json" id="sales-data">{{ .SalesData | toJson }}</script>
 	<script>
-window.addEventListener("DOMContentLoaded", function () {
-	const canvas = document.getElementById("salesChart");
-	const salesDataElement = document.getElementById("sales-data");
+	window.addEventListener("DOMContentLoaded", function () {
+		const canvas = document.getElementById("salesChart");
+		const salesDataElement = document.getElementById("sales-data");
 
-	if (!canvas || !salesDataElement) {
-		console.warn("Chart canvas or sales data not found.");
-		return;
-	}
+		if (!canvas || !salesDataElement) return;
 
-	const rawData = salesDataElement.textContent;
-	if (!rawData || rawData.trim() === "" || rawData.trim() === "null" || rawData.trim() === "[]") {
-		console.warn("Sales data is empty.");
-		return;
-	}
+		const rawData = salesDataElement.textContent;
+		if (!rawData || rawData.trim() === "" || rawData.trim() === "null" || rawData.trim() === "[]") return;
 
-	try {
-		const salesData = JSON.parse(rawData);
-		const labels = salesData.map(item => item.nama_produk);
-		const data = salesData.map(item => item.total_terjual);
+		try {
+			const salesData = JSON.parse(rawData);
+			const labels = salesData.map(item => item.nama_produk);
+			const data = salesData.map(item => item.total_terjual);
 
-		const ctx = canvas.getContext("2d");
-		new Chart(ctx, {
-			type: 'bar',
-			data: {
-				labels: labels,
-				datasets: [{
-					label: 'Total Terjual',
-					data: data,
-					backgroundColor: 'rgba(54, 162, 235, 0.6)',
-					borderRadius: 6
-				}]
-			},
-			options: {
-				responsive: true,
-				scales: {
-					y: { beginAtZero: true }
+			new Chart(canvas.getContext("2d"), {
+				type: 'bar',
+				data: {
+					labels: labels,
+					datasets: [{
+						label: 'Total Terjual',
+						data: data,
+						backgroundColor: 'rgba(54, 162, 235, 0.6)',
+						borderRadius: 6
+					}]
+				},
+				options: {
+					responsive: true,
+					scales: {
+						y: { beginAtZero: true }
+					}
 				}
-			}
-		});
-	} catch (e) {
-		console.error("Chart rendering failed:", e);
-	}
-});
-</script>
-
+			});
+		} catch (e) {
+			console.error("Chart render failed", e);
+		}
+	});
+	</script>
 </body>
 </html>
 {{ end }}

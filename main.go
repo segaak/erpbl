@@ -17,5 +17,5 @@ func main() {
 	server.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("views"))))
 	server.Handle("/customer-image/", http.StripPrefix("/customer-image/", http.FileServer(http.Dir("views/customer/images/produk"))))
 
-	http.ListenAndServe(":8080", server)
+	http.ListenAndServe("0.0.0.0:8080", server)
 }
