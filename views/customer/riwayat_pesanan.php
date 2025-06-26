@@ -77,6 +77,9 @@ $orders = $result->fetch_all(MYSQLI_ASSOC);
   <?php include('../../parts/customer/navbar2.php'); ?>
 
   <div class="container mt-4">
+      <div class="breadcrumb mb-4">
+    <a href="produk.php">Home</a> > <a href="#">Cart</a>
+  </div>
     <h5 class="fw-bold mb-3">Daftar Transaksi</h5>
 
     <!-- Filter status -->

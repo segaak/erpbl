@@ -107,6 +107,7 @@ $foto_profil = 'images/user-default.png';
 
 <header>
   <div class="logo">
+    
     <img src="images/logo.jpg" alt="Logo">
     <h1>SI-SUPPLY</h1>
   </div>

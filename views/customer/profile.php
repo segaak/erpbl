@@ -48,6 +48,9 @@ $user = $result->fetch_assoc();
 <?php include('../../parts/customer/navbar2.php'); ?>
 
 <div class="container mt-5">
+    <div class="breadcrumb mb-4">
+    <a href="produk.php">Home</a> > <a href="#">profil</a>
+  </div>
   <div class="profile-box">
     <div class="d-flex align-items-center mb-4">
       <img src="<?= $user['foto_profil']   ?>" class="profile-img me-3" alt="Profile Photo">

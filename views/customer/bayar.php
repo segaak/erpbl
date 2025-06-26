@@ -20,16 +20,27 @@ $id_pembayaran = $conn->insert_id;
 
 // Simpan ke tabel pesanan
 foreach ($_SESSION['cart'] as $id_produk => $jumlah) {
-    $produk = $conn->query("SELECT harga FROM produk WHERE ID_Produk = $id_produk")->fetch_assoc();
+    // Ambil harga dan stok produk
+    $produk = $conn->query("SELECT harga, Stok FROM produk WHERE ID_Produk = $id_produk")->fetch_assoc();
     if (!$produk) continue;
 
     $harga_satuan = (int)$produk['harga'];
     $subtotal = $harga_satuan * $jumlah;
 
+    // Simpan ke tabel pesanan
     $stmt = $conn->prepare("INSERT INTO pesanan (id_pembayaran, id_produk, jumlah, harga_satuan, subtotal) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("iiiii", $id_pembayaran, $id_produk, $jumlah, $harga_satuan, $subtotal);
     $stmt->execute();
+
+    // Update stok produk
+    $stok_baru = $produk['Stok'] - $jumlah;
+    if ($stok_baru < 0) $stok_baru = 0; // jaga-jaga
+
+    $stmt = $conn->prepare("UPDATE produk SET Stok = ? WHERE ID_Produk = ?");
+    $stmt->bind_param("ii", $stok_baru, $id_produk);
+    $stmt->execute();
 }
+
 
 // Hapus keranjang
 unset($_SESSION['cart']);
