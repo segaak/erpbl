@@ -10,10 +10,11 @@ if (empty($_SESSION['cart']) || !isset($_SESSION['total_bayar'], $_SESSION['meto
 $metode = $_SESSION['metode_pembayaran'];
 $total = $_SESSION['total_bayar'];
 $tanggal = date('Y-m-d H:i:s');
+$user_id = $_SESSION['id'] ?? 'guest'; // Ambil username dari session
 
-// Simpan ke tabel pembayaran
-$stmt = $conn->prepare("INSERT INTO pembayaran (metode, total, tanggal) VALUES (?, ?, ?)");
-$stmt->bind_param("sis", $metode, $total, $tanggal);
+// Simpan ke tabel pembayaran, sekarang termasuk username
+$stmt = $conn->prepare("INSERT INTO pembayaran (metode, total, tanggal, user_id) VALUES (?, ?, ?, ?)");
+$stmt->bind_param("siss", $metode, $total, $tanggal, $user_id);
 $stmt->execute();
 $id_pembayaran = $conn->insert_id;
 
