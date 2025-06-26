@@ -3,24 +3,27 @@ package controller
 import (
 	"database/sql"
 	"html/template"
+	"log"
 	"net/http"
 )
 
 type Order struct {
-	ID      int
-	Nama    string
-	Alamat  string
-	Tanggal string
-	Kontak  string
-	Status  string
-	Produk  []ProdukOrder
+	IDPembayaran int
+	Nama         string
+	Alamat       string
+	Tanggal      string
+	Kontak       string
+	Status       string
+	Produk       []ProdukOrder
 }
 
 type ProdukOrder struct {
+	ID         int
 	NamaProduk string
 	Jumlah     int
 	Harga      int
 	Subtotal   int
+	Status     string
 }
 
 func OrderHandler(db *sql.DB) http.HandlerFunc {
@@ -30,15 +33,17 @@ func OrderHandler(db *sql.DB) http.HandlerFunc {
 			return
 		}
 
+		// Ambil semua data pesanan bergabung dengan data pembayaran dan produk
 		rows, err := db.Query(`
 			SELECT 
-				u.id, u.nama, u.alamat, pm.tanggal, u.no_hp, ps.status,
-				pr.nama_produk, ps.jumlah, ps.harga_satuan, ps.subtotal
-			FROM users u
-			JOIN pembayaran pm ON u.id = pm.id
-			JOIN pesanan ps ON pm.id = ps.id_pembayaran
-			JOIN produk pr ON ps.ID_produk = pr.ID_Produk
-			ORDER BY u.id;
+	pm.id, u.nama, u.alamat, pm.tanggal, u.no_hp, ps.status, ps.id,
+	pr.nama_produk, ps.jumlah, ps.harga_satuan, ps.subtotal
+FROM pembayaran pm
+JOIN users u ON u.id = pm.user_id
+JOIN pesanan ps ON pm.id = ps.id_pembayaran
+JOIN produk pr ON ps.ID_produk = pr.ID_Produk
+ORDER BY pm.id;
+
 		`)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -50,33 +55,35 @@ func OrderHandler(db *sql.DB) http.HandlerFunc {
 
 		for rows.Next() {
 			var (
-				id                                                int
+				idPembayaran                                      int
 				nama, alamat, tanggal, kontak, status, namaProduk string
-				jumlah, harga, subtotal                           int
+				jumlah, harga, subtotal, idPesanan                int
 			)
-			err := rows.Scan(&id, &nama, &alamat, &tanggal, &kontak, &status, &namaProduk, &jumlah, &harga, &subtotal)
+			err := rows.Scan(&idPembayaran, &nama, &alamat, &tanggal, &kontak, &status, &idPesanan, &namaProduk, &jumlah, &harga, &subtotal)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
 
-			if orderMap[id] == nil {
-				orderMap[id] = &Order{
-					ID:      id,
-					Nama:    nama,
-					Alamat:  alamat,
-					Tanggal: tanggal,
-					Kontak:  kontak,
-					Status:  status,
-					Produk:  []ProdukOrder{},
+			if orderMap[idPembayaran] == nil {
+				orderMap[idPembayaran] = &Order{
+					IDPembayaran: idPembayaran,
+					Nama:         nama,
+					Alamat:       alamat,
+					Tanggal:      tanggal,
+					Kontak:       kontak,
+					Status:       status,
+					Produk:       []ProdukOrder{},
 				}
 			}
 
-			orderMap[id].Produk = append(orderMap[id].Produk, ProdukOrder{
+			orderMap[idPembayaran].Produk = append(orderMap[idPembayaran].Produk, ProdukOrder{
+				ID:         idPesanan,
 				NamaProduk: namaProduk,
 				Jumlah:     jumlah,
 				Harga:      harga,
 				Subtotal:   subtotal,
+				Status:     status,
 			})
 		}
 
@@ -99,5 +106,8 @@ func OrderHandler(db *sql.DB) http.HandlerFunc {
 			"CurrentPath": r.URL.Path,
 			"Orders":      orders,
 		})
+		if err != nil {
+			log.Println("Template execution error:", err)
+		}
 	}
 }

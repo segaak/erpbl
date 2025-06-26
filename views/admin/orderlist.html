@@ -1,100 +1,95 @@
 {{ define "order" }}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/static/style.css">
-	<title>Order Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Lists</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
-	{{ template "sidebar" . }}
-	<section id="content">
-		{{ template "navbar" . }}
-		<main>
-			<h2 class="text-2xl font-bold p-4">Order Lists</h2>
-			<div class="table-container">
-				<table class="order-table">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>NAME</th>
-							<th>ADDRESS</th>
-							<th>DATE</th>
-							<th>KONTAK</th>
-							<th>STATUS</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						{{ range .Orders }}
-						<tr>
-							<td>{{ printf "%05d" .ID }}</td>
-							<td>{{ .Nama }}</td>
-							<td>{{ .Alamat }}</td>
-							<td>{{ .Tanggal }}</td>
-							<td>{{ .Kontak }}</td>
-							<td>
-								<form action="/updatestatus" method="POST" class="status-form">
-									<input type="hidden" name="id" value="{{ .ID }}">
-									<select name="status" class="status-select" onchange="this.form.submit()">
-										<option value="Menunggu" {{if eq .Status "Menunggu" }}selected{{end}}>Menunggu
-										</option>
-										<option value="Selesai" {{if eq .Status "Selesai" }}selected{{end}}>Selesai
-										</option>
-										<option value="Ditolak" {{if eq .Status "Ditolak" }}selected{{end}}>Ditolak
-										</option>
-									</select>
-								</form>
+  {{ template "sidebar" . }}
+  <section id="content">
+    {{ template "navbar" . }}
 
-							</td>
-							<td>
-								<button class="expand-btn" onclick="toggleDetails('{{ .ID }}')">▼</button>
-							</td>
-						</tr>
-						<tr id="details-{{ .ID }}" class="product-details">
-							<td colspan="7">
-								<table class="product-table">
-									<thead>
-										<tr>
-											<th>PRODUCT</th>
-											<th>JUMLAH</th>
-											<th>HARGA</th>
-											<th>SUBTOTAL</th>
-										</tr>
-									</thead>
-									<tbody>
-										{{ range .Produk }}
-										<tr>
-											<td>{{ .NamaProduk }}</td>
-											<td>{{ .Jumlah }}</td>
-											<td>Rp {{ .Harga }}</td>
-											<td>Rp {{ .Subtotal }}</td>
-										</tr>
-										{{ end }}
-									</tbody>
-								</table>
-							</td>
-						</tr>
-						{{ end }}
-					</tbody>
-				</table>
-				<!-- <p class="text-sm text-gray-500 mt-2">Showing 1-09 of 78</p> -->
-			</div>
-		</main>
-		<script>
-			function toggleDetails(id) {
-				const row = document.getElementById("details-" + id);
-				if (row.style.display === "none" || row.style.display === "") {
-					row.style.display = "table-row";
-				} else {
-					row.style.display = "none";
-				}
-			}
-		</script>
-	</section>
+    <main>
+      <h2 class="text-2xl font-bold p-4">Order Lists</h2>
+      <div class="table-container">
+        <table class="order-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Date</th>
+              <th>Contact</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{ range .Orders }}
+            <tr>
+              <td>{{ printf "%05d" .IDPembayaran }}</td>
+              <td>{{ .Nama }}</td>
+              <td>{{ .Alamat }}</td>
+              <td>{{ .Tanggal }}</td>
+              <td>{{ .Kontak }}</td>
+              <td><button class="expand-btn" onclick="toggleDetails('{{ .IDPembayaran }}')">▼</button></td>
+            </tr>
+            <tr id="details-{{ .IDPembayaran }}" class="product-details" style="display: none;">
+              <td colspan="6">
+                <table class="product-table">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Qty</th>
+                      <th>Price</th>
+                      <th>Subtotal</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{ range .Produk }}
+                    <tr>
+                      <td>{{ .NamaProduk }}</td>
+                      <td>{{ .Jumlah }}</td>
+                      <td>Rp {{ .Harga }}</td>
+                      <td>Rp {{ .Subtotal }}</td>
+                      <td>
+                        <form method="POST" action="/updatestatus">
+                          <input type="hidden" name="id_pesanan" value="{{ .ID }}">
+                          <select name="status" class="status-select" onchange="this.form.submit()">
+                            <option value="Menunggu" {{ if eq .Status "Menunggu" }}selected{{ end }}>Menunggu</option>
+                            <option value="Selesai" {{ if eq .Status "Selesai" }}selected{{ end }}>Selesai</option>
+                            <option value="Ditolak" {{ if eq .Status "Ditolak" }}selected{{ end }}>Ditolak</option>
+                          </select>
+                        </form>
+                      </td>
+                    </tr>
+                    {{ end }}
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            {{ end }}
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </section>
+
+  <script>
+    function toggleDetails(id) {
+      const row = document.getElementById("details-" + id);
+      if (row.style.display === "none" || row.style.display === "") {
+        row.style.display = "table-row";
+      } else {
+        row.style.display = "none";
+      }
+    }
+  </script>
 </body>
 
 </html>
