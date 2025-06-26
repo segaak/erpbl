@@ -131,6 +131,9 @@ if (!$produk) {
   </div>
 
   <p class="mt-2 mb-0 fw-semibold">Stock = <?= $produk['Stok']; ?></p>
+  <?php if ($produk['Stok'] <= 0): ?>
+  <p class="text-danger fw-bold">Stok Habis!</p>
+<?php endif; ?>
 </div>
 
 
@@ -152,34 +155,42 @@ if (!$produk) {
     <!-- Pembelian -->
     <div class="col-md-3">
       <div class="purchase-box">
-        <form action="add_to_cart.php" method="post">
-          <input type="hidden" name="id_produk" value="<?= $produk['ID_Produk']; ?>">
-          <label for="quantity" class="form-label fw-bold mb-2">Jumlah pembelian</label>
-          <div class="quantity-box">
-            <button type="button" onclick="changeQty(-1)">-</button>
-            <input type="number" name="quantity" id="quantity" value="1" min="1" class="form-control text-center" style="width: 60px;">
-            <button type="button" onclick="changeQty(1)">+</button>
-          </div>
-          <button type="submit" class="btn-add">Add</button>
-        </form>
+   <div class="purchase-box">
+  <?php if ($produk['Stok'] <= 0): ?>
+    <div class="alert alert-danger fw-semibold" role="alert">
+      Produk sedang habis!
+    </div>
+    <button class="btn btn-secondary w-100" disabled>Stok Kosong</button>
+  <?php else: ?>
+    <form action="add_to_cart.php" method="post">
+      <input type="hidden" name="id_produk" value="<?= $produk['ID_Produk']; ?>">
+      <label for="quantity" class="form-label fw-bold mb-2">Jumlah pembelian</label>
+      <div class="quantity-box">
+        <button type="button" onclick="changeQty(-1)">-</button>
+<input type="number" name="quantity" id="quantity" value="1" min="1" max="<?= $produk['Stok']; ?>" class="form-control text-center" style="width: 60px;">
+        <button type="button" onclick="changeQty(1)">+</button>
       </div>
+      <button type="submit" class="btn-add">Add</button>
+    </form>
+  <?php endif; ?>
+</div>
     </div>
   </div>
 </div>
 
 <script>
-  function changeQty(amount) {
-    const input = document.getElementById('quantity');
-    let current = parseInt(input.value);
-    if (!isNaN(current)) {
-      current = current + amount;
-      if (current < 1) current = 1;
-      input.value = current;
-    }
+function changeQty(amount) {
+  const input = document.getElementById('quantity');
+  let current = parseInt(input.value);
+  const max = parseInt(input.max);
+  if (!isNaN(current)) {
+    current = current + amount;
+    if (current < 1) current = 1;
+    if (!isNaN(max) && current > max) current = max;
+    input.value = current;
   }
-    function changeImage(src) {
-    document.getElementById('mainImage').src = src;
-  }
+}
+
 </script>
 
 </body>
